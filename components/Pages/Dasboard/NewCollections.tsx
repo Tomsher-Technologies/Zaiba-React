@@ -83,9 +83,12 @@ const NewCollections: FC = () => {
                                     <button
                                         data-carousel="important-notes"
                                         data-target="prev"
-                                        className="absolute top-[35%] md:top-[30%] lg:top-[35%] 2xl:top-[40%] left-4  sm:-left-14 transform -translate-y-1/2 z-[99] btn px-2 border-slate-100 text-slate-600 dark:text-slate-300 ml-2 rounded-full bg-gary-400 border border-slate-700/[.3] shadow-lg"
+                                        className="absolute top-[35%] md:top-[30%] lg:top-[35%] 2xl:top-[50%] left-4  sm:-left-14 transform -translate-y-1/2 z-[99] btn px-2 "
                                         onClick={() => (carouselRef as any).current.slidePrev()}>
-                                        <West />
+                                        <img
+                                            src="/svg/arrowleftblack.svg"
+
+                                        />
                                     </button>
                                     <div className="relative tab-content" id="pills-tabContent">
                                         <div
@@ -98,7 +101,7 @@ const NewCollections: FC = () => {
                                         >
                                             <AliceCarousel
                                                 autoPlay
-                                                autoPlayInterval={7000}
+                                                autoPlayInterval={70000}
                                                 ref={carouselRef}
                                                 disableButtonsControls
                                                 // disableDotsControls
@@ -481,9 +484,12 @@ const NewCollections: FC = () => {
                                     <button
                                         data-carousel="important-notes"
                                         data-target="next"
-                                        className="absolute  top-[35%] md:top-[30%] lg:top-[35%] 2xl:top-[40%] right-4  sm:-right-14  transform -translate-y-1/2  z-[99] btn px-2 border-slate-100 text-slate-600 dark:text-slate-300 mr-2 rounded-full bg-gary-400 border border-slate-700/[.3] shadow-lg"
+                                        className="absolute  top-[35%] md:top-[30%] lg:top-[35%] 2xl:top-[50%] right-4  sm:-right-14  transform -translate-y-1/2  z-[99] btn px-2 "
                                         onClick={() => (carouselRef as any).current.slideNext()}>
-                                        <East />
+                                        <img
+                                            src="/svg/arrowrightblack.svg"
+
+                                        />
                                     </button>
                                 </div>
                             </div>

@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-div.alice-carousel > ul.alice-carousel__dots {
+div.alice-carousel>ul.alice-carousel__dots {
   position: absolute;
   margin: 0;
   padding: 0;
@@ -10,10 +10,19 @@ div.alice-carousel > ul.alice-carousel__dots {
   left: 50%;
 }
 
-.carousel-container {
-  margin: 0;
-  padding: 0;
+.custom-gallery .image-gallery-thumbnail.active,
+.custom-gallery .image-gallery-thumbnail:hover {
+  /* Add your custom styling here */
+  border: 1px solid #000000;
+  border-radius: 6px;
 }
+
+.custom-gallery .image-gallery-thumbnail {
+  /* Add your custom styling here */
+  border: 1px solid rgba(221, 221, 221, 0.93);
+  border-radius: 6px;
+}
+
 
 /* :root {
   --foreground-rgb: 0, 0, 0;

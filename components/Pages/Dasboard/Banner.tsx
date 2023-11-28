@@ -41,14 +41,17 @@ const Banner: FC = () => {
                 <button
                     data-carousel="important-notes"
                     data-target="prev"
-                    className="absolute top-[35%] md:top-[30%] lg:top-[35%] 2xl:top-[50%]  left-5 transform -translate-y-1/2 z-[99] p-2 bg-gray-300 rounded-md"
+                    className="absolute top-[35%] md:top-[30%] lg:top-[35%] 2xl:top-[50%]  left-5 transform -translate-y-1/2 z-[99] p-2 rounded-md"
                     onClick={() => (carouselRef as any).current.slidePrev()}>
-                    <West className='text-gray-700' />
+                    <img
+                        src="/svg/arrowleftwhite.svg"
+
+                    />
                 </button>
                 <AliceCarousel
                     autoPlay
                     renderDotsItem={renderDots as any}
-                    autoPlayInterval={7000}
+                    autoPlayInterval={70000}
                     ref={carouselRef}
                     disableButtonsControls
                     // disableDotsControls
@@ -128,9 +131,12 @@ const Banner: FC = () => {
                 <button
                     data-carousel="important-notes"
                     data-target="next"
-                    className="absolute  top-[35%] md:top-[30%] lg:top-[35%] 2xl:top-[50%] right-4 transform -translate-y-1/2 z-[99] p-2 bg-gray-300 rounded-md"
+                    className="absolute  top-[35%] md:top-[30%] lg:top-[35%] 2xl:top-[50%] right-4 transform -translate-y-1/2 z-[99] "
                     onClick={() => (carouselRef as any).current.slideNext()}>
-                    <East />
+                    <img
+                        src="/svg/arrowrightwhite.svg"
+
+                    />
                 </button>
             </div>
         </section>

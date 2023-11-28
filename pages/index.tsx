@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import { FC } from 'react';
+import { FC, Fragment } from 'react';
 
 import withMainLayout from '@/hocs/withMainLayout';
 
@@ -18,7 +18,7 @@ const Option = dynamic(() => import('@/components/Pages/Dasboard/Option'));
 
 const Home: FC = () => {
   return (
-    <>
+    <Fragment>
 
       <Banner />
 
@@ -42,7 +42,7 @@ const Home: FC = () => {
 
       <Option />
 
-    </>
+    </Fragment>
   )
 }
 

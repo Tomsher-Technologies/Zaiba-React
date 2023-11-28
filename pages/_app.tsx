@@ -3,6 +3,10 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import Link from 'next/link';
 import '@/assets/css/main.css';
+import { StyledEngineProvider, CssBaseline } from '@mui/material';
+
+import ReduxProvider from '@/redux/ReduxProvider';
+import ReactQueryProvider from '@/providers/ReactQueryProvider';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -13,8 +17,15 @@ export default function App({ Component, pageProps }: AppProps) {
         <Link rel="stylesheet" href="@/assets/css/main.css" />
         <Link rel="stylesheet" href="@/assets/css/font-awesome-pro.css" />
       </Head>
-      <Component {...pageProps} />
-
+      
+      <ReactQueryProvider>
+        <StyledEngineProvider injectFirst>
+          <CssBaseline />
+          <ReduxProvider>
+            <Component {...pageProps} />
+          </ReduxProvider>
+        </StyledEngineProvider>
+      </ReactQueryProvider>
     </>
 
   )

@@ -1,17 +1,19 @@
-import React, { FC } from 'react';
+import React, { FC, Fragment } from 'react';
 import dynamic from 'next/dynamic';
 
 import withMainLayout from '@/hocs/withMainLayout';
 
-const InnerStrip = dynamic(() => import('@/components/Pages/ProductListing/InnerStrip'));
-const Filters = dynamic(() => import('@/components/Pages/ProductListing/Filters'));
-const ProductSort = dynamic(() => import('@/components/Pages/ProductListing/ProductSort'));
-const ProductListing = dynamic(() => import('@/components/Pages/ProductListing/ProductListing'));
+const InnerStrip = dynamic(() => import('@/components/Pages/Products/InnerStrip'));
+const Filters = dynamic(() => import('@/components/Pages/Products/Filters'));
+const ProductSort = dynamic(() => import('@/components/Pages/Products/ProductSort'));
+const ProductListing = dynamic(() => import('@/components/Pages/Products/ProductListing'));
 
 const ProductsListing: FC = () => {
     return (
-        <>
-            <InnerStrip />
+        <Fragment>
+            <InnerStrip
+                title={"Rings"}
+            />
             <section className="zb-product-listing-area">
                 <div className="container-fluid px-7">
                     <div className="row">
@@ -25,7 +27,7 @@ const ProductsListing: FC = () => {
                     </div>
                 </div>
             </section>
-        </>
+        </Fragment>
     )
 }
 

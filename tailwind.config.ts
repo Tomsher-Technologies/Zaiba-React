@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss'
+import { colors } from './constants/colors'
 
 const config: Config = {
   // prefix: 'tw-',
@@ -13,6 +14,20 @@ const config: Config = {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      },
+      colors: {
+        primary: colors.primaryColor,
+        primaryhover: colors.primaryHoverColor,
+        secondary: colors.secondaryColor,
+        error: colors.errorColor,
+        warning: colors.warningColor,
+        success: colors.successColor,
+        danger: colors.dangerColor,
+        inverse: colors.inverseColor,
+        faded: colors.fadedColor,
+        dark: '#3c4858',
+        black: '#161c2d',
+        'dark-footer': '#161c28',
       },
     },
   },
