@@ -24,6 +24,7 @@ export interface CommonInputTextProps extends InputHTMLAttributes<HTMLInputEleme
     maxRows?: number;
     color?: any;
     showIcon?: any;
+    placeholderFontSize?: string;
     borderColor?: string;
     focusedBorderColor?: string;
     labelColor?: string;
@@ -33,6 +34,7 @@ export interface CommonInputTextProps extends InputHTMLAttributes<HTMLInputEleme
     textFieldSize?: any;
     endAdornment?: any;
     startAdornment?: any;
+    textPadding?: string;
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
     onKeyPress?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 }
@@ -113,6 +115,7 @@ export interface SelectProps {
     bgColor?: string;
     onChange?: any;
     formik?: FormikProps<any>;
+    disabled: boolean;
 }
 
 export interface SelectLookupProps {

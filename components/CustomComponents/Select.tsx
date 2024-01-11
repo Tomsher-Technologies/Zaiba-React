@@ -1,7 +1,7 @@
 import { FormControl, InputLabel, MenuItem, Select as MuiSelect, FormHelperText, SxProps } from '@mui/material';
 import { getIn } from 'formik';
 
-import { SelectProps } from '@/types/CommonInputTextProps';
+import { SelectProps } from '@/types/common/CommonInputTextProps';
 import { colors } from '@/constants/colors';
 
 
@@ -22,7 +22,8 @@ const Select: React.FC<SelectProps> = ({
     hoverBorderColor = '',
     labelColor = colors.primaryColor,
     onChange,
-    formik
+    formik,
+    disabled = false,
 }) => {
     const field = formik?.getFieldProps(name);
     const fieldError = getIn(formik?.errors, name);
@@ -30,13 +31,14 @@ const Select: React.FC<SelectProps> = ({
 
     return (
         <FormControl fullWidth variant="outlined" size={textFieldSize} error={fieldError && fieldTouched}>
-            {labelText.trim() != "" && <div className={`mb-2 text-black ${required ? " *" : ""} ${labelClassName}`}>{labelText}{required && <span className='text-error'>*</span>}</div>}
+            {labelText.trim() != "" && <div className={`mb-2 font-semibold text-black ${required ? " *" : ""} ${labelClassName}`}>{labelText}{required && <span className='text-error'>*</span>}</div>}
             {/* <InputLabel>{`${label} ${required ? " *" : ""}`}</InputLabel> */}
             <MuiSelect
                 label={label}
                 name={name}
                 value={value}
                 onChange={onChange}
+                disabled={disabled}
                 sx={{
                     fieldset: { borderColor: borderColor },
 
@@ -49,6 +51,9 @@ const Select: React.FC<SelectProps> = ({
                     "&:hover .MuiOutlinedInput-notchedOutline": {
                         borderColor: hoverBorderColor,
                         // borderWidth: "thin",
+                    },
+                    "& .MuiInputBase-input.Mui-disabled": {
+                        WebkitTextFillColor: "#000000",
                     },
                     "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
                         borderColor: focusedBorderColor,

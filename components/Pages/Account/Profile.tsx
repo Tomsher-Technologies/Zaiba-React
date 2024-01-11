@@ -1,7 +1,67 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { useFormik } from 'formik';
 
-const Profile: FC = () => {
-    
+import InputText from '@/components/CustomComponents/InputText';
+import Button from '@/components/CustomComponents/Button';
+import AlertDialogSlide from '@/components/CustomComponents/AlertDialogSlide';
+import Success from '@/components/alerts/Success';
+import ValidationErrorMessage from '@/components/CustomComponents/ValidationErrorMessage';
+
+import { ProfileProps } from '@/types/Account';
+import { profileValidationSchema } from '@/utiles/validations/accountSchema';
+import { profileFormik } from '@/utiles/formik/accountFormik';
+
+import { APIFetch } from '@/server_api/utils/APIFetch';
+import { apiEndpoints } from '@/server_api/config/api.endpoints';
+import FetchAPIData from '@/server_api/apifunctions/apifetch';
+import PostAPI from '@/server_api/apifunctions/apipost';
+
+const Profile: FC<ProfileProps> = ({ user }) => {
+
+    const [enableEdit, setEnableEdit] = useState(false);
+    const [alertSuccsess, setAlertSuccsess] = useState<boolean>(false);
+    const [errorMessages, setErrorMessages] = useState<string | null>(null);
+
+    const formik = useFormik({
+        initialValues: profileFormik,
+        validationSchema: profileValidationSchema,
+        onSubmit: (values: any) => {
+            updateProfile({ ...values, apiEndpoint: apiEndpoints.updateProfile } as any)
+        },
+    });
+
+    const { data: userData, isLoading: userDta_loading } = useQuery({
+        queryKey: [apiEndpoints.userProfile],
+        queryFn: () => FetchAPIData.fetchAPIData({ apiEndpoint: apiEndpoints.userProfile }),
+        enabled: Boolean(user?.id)
+    });
+
+
+    const { data: updateResponse, mutate: updateProfile, isLoading: update_isLoading, error: profile_error } = useMutation<any>(PostAPI.postAPI, {
+        onSuccess: async (response: any) => {
+            setErrorMessages(null);
+            if (response.status) {
+                setEnableEdit(false);
+                setAlertSuccsess(true);
+            }
+        },
+        onError: (error: any) => {
+            setErrorMessages("Something went wrong.");
+        }
+    });
+
+    useEffect(() => {
+        userData && userData?.data && initializeProfileData((userData as any).data);
+    }, [userDta_loading]);
+
+    const initializeProfileData = (data: any) => {
+        formik.setFieldValue('name', data?.name || '');
+        formik.setFieldValue('email', data?.email || '');
+        formik.setFieldValue('phone_number', data?.phone || '');
+    }
+
+    console.log('formik', formik);
     return (
         <div
             className="tab-pane fade show active"
@@ -10,137 +70,100 @@ const Profile: FC = () => {
             aria-labelledby="v-pills-profile-tab"
             tabIndex={0}
         >
-            <h3 className="mb-2">Profile</h3>
-            <div className="zb-profile-intro">
-                <h4>Hello Umniyah!</h4>
-                <small>umniyah123@gmail.com</small>
-            </div>
-            <div className="zb-profile-information">
-                <div className="d-flex align-items-center justify-content-between">
-                    <h3>Contact information</h3>
-                    <a href="#" className="btn btn-edit">
+            <APIFetch isLoading={Boolean(!user?.name)} notLengthCheckObject={true} >
+                <APIFetch isLoading={userDta_loading} notLengthCheckObject={true} >
+                    <h3 className="mb-2">Profile</h3>
+                    <div className="zb-profile-intro">
+                        <h4>Hello {user?.name}!</h4>
+                        <small>{user?.email}</small>
+                    </div>
+                    {(userData as any)?.data &&
+                        <div className="zb-profile-information">
+                            <div className="d-flex align-items-center justify-content-between">
+                                <h3>Contact information</h3>
+                                <div className="btn btn-edit" onClick={() => setEnableEdit(!enableEdit)}>
 
-                        <i className="bi bi-pencil me-1" /> Edit
-                    </a>
-                </div>
-                <hr />
-                <form action="#">
-                    <div className="row g-3">
-                        <div className="col-md-2">
-                            <label htmlFor="inputEmail4" className="form-label">
-                                Title
-                            </label>
-                            <select
-                                className="form-select form-control"
-                                aria-label="Default select example"
-                            >
-                                <option selected={true}>Ms.</option>
-                                <option value={1}>Mr.</option>
-                            </select>
+                                    <i className="bi bi-pencil me-1" /> Edit
+                                </div>
+                            </div>
+                            <hr />
+
+                            <div className="row g-3">
+                                <div className="col-md-6">
+                                    <InputText
+                                        labelText="Full Name"
+                                        placeholder="Enter full name"
+                                        className="w-full"
+                                        name="name"
+                                        value={(userData as any)?.data?.name}
+                                        disabled={!enableEdit}
+                                        onChange={formik.handleChange}
+                                        error={formik?.touched?.name && formik.errors.name && formik.errors.name}
+                                    />
+                                </div>
+                                <div className="col-md-6">
+                                    <InputText
+                                        labelText="Email"
+                                        placeholder="Enter email"
+                                        className="w-full"
+                                        name="name"
+                                        value={(userData as any)?.data?.email}
+                                        disabled={!enableEdit}
+                                        // value={formik.values.email}
+                                        onChange={formik.handleChange}
+                                        error={formik?.touched?.email && formik.errors.email && formik.errors.email}
+                                    />
+                                </div>
+                                <div className="col-md-6">
+                                    <InputText
+                                        labelText="Phone"
+                                        placeholder="Enter phone"
+                                        className="w-full"
+                                        name="name"
+                                        value={(userData as any)?.data?.phone}
+                                        disabled={!enableEdit}
+                                        // value={formik.values.phone_number}
+                                        onChange={formik.handleChange}
+                                        error={formik?.touched?.phone_number && formik.errors.phone_number && formik.errors.phone_number}
+                                    />
+                                </div>
+                                <ValidationErrorMessage errorMessages={profile_error || errorMessages} />
+                                {enableEdit &&
+                                    <div className='w-full md:w-[50%] xl:w-[33%] '>
+                                        <Button
+                                            className={`w-full md:w-[50%] xl:w-[33%] !rounded-md !bg-primary !hover:bg-primaryhover !text-center py-2 text-base font-medium`}
+                                            variant="contained"
+                                            isLoading={update_isLoading}
+                                            onClick={() => formik.handleSubmit()}
+                                        >
+                                            Update
+                                        </Button>
+                                    </div>
+                                }
+                            </div>
+
                         </div>
-                        <div className="col-md-5">
-                            <label htmlFor="inputEmail4" className="form-label">
-                                First Name
-                            </label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                placeholder="First name"
-                                defaultValue="Umniyah Azizah"
-                                aria-label="First name"
-                            />
-                        </div>
-                        <div className="col-md-5">
-                            <label htmlFor="inputEmail4" className="form-label">
-                                Last Name
-                            </label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                placeholder="Last name"
-                                defaultValue="Nader"
-                                aria-label="Last name"
-                            />
-                        </div>
-                        <div className="col-md-4">
-                            <label htmlFor="inputEmail4" className="form-label">
-                                Email
-                            </label>
-                            <input
-                                type="email"
-                                className="form-control"
-                                placeholder="Last name"
-                                defaultValue="umniyah123@gmail.com"
-                                aria-label="Last name"
-                            />
-                        </div>
-                        <div className="col-md-4">
-                            <label htmlFor="inputEmail4" className="form-label">
-                                Phone
-                            </label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                placeholder="Last name"
-                                defaultValue="+971-56-123456789"
-                                aria-label="Last name"
-                            />
-                        </div>
+                    }
+                    <div className="zb-profile-bottom">
+                        <a href="#" className="btn btn-password w-25">
+                            Change Password
+                        </a>
+                        <a href="#" className="btn btn-delete">
+                            Delete account
+                        </a>
                     </div>
-                    <div className="row g-3 mt-1">
-                        <div className="col-md-2">
-                            <label htmlFor="inputEmail4" className="form-label">
-                                Date Of Birth
-                            </label>
-                            <select
-                                className="form-select form-control"
-                                aria-label="Default select example"
-                            >
-                                <option selected={false}>02</option>
-                                <option value={1}>03</option>
-                                <option value={2}>04</option>
-                            </select>
-                        </div>
-                        <div className="col-md-2 align-self-end">
-                            <select
-                                className="form-select form-control"
-                                aria-label="Default select example"
-                            >
-                                <option>January</option>
-                                <option value={1} selected={false}>
-                                    February
-                                </option>
-                                <option value={2}>March</option>
-                            </select>
-                        </div>
-                        <div className="col-md-2 align-self-end">
-                            <select
-                                className="form-select form-control"
-                                aria-label="Default select example"
-                            >
-                                <option>1992</option>
-                                <option value={1} selected={false}>
-                                    1990
-                                </option>
-                                <option value={2}>1991</option>
-                            </select>
-                        </div>
-                        <div className="col-md-12 mt-4">
-                            <a href="#" className="btn btn-login w-25">
-                                Update
-                            </a>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div className="zb-profile-bottom">
-                <a href="#" className="btn btn-password w-25">
-                    Change Password
-                </a>
-                <a href="#" className="btn btn-delete">
-                    Delete account
-                </a>
-            </div>
+                </APIFetch>
+
+            </APIFetch>
+            <AlertDialogSlide
+                isOpen={alertSuccsess}
+                setIsOpen={setAlertSuccsess}
+                contents={<>
+                    <Success contents={updateResponse?.message} />
+                </>}
+                cancelText="Ok"
+                onSubmitButton={false}
+            />
         </div>
     )
 }

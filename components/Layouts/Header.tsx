@@ -1,20 +1,28 @@
-import React, { FC } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 import Drawer from '@mui/material/Drawer';
+import { List, ListItem, ListItemText } from '@mui/material';
 
 
-const Cart = dynamic(() => import('@/components/Pages/Cart/CartSlider'));
+
+type Anchor = 'top' | 'left' | 'bottom' | 'right';
+
+const CartDrawer = dynamic(() => import('@/components/Pages/Cart/CartSlider'));
+const SearchDrawer = dynamic(() => import('@/components/Layouts/SearchDrawer'));
+const MenuDrawer = dynamic(() => import('@/components/Layouts/MenuDrawer'));
 
 const Header: FC = () => {
     const user = useSelector((state: RootState) => state.user);
-    // console.log('user', user);
+    const searchDrawerRef = useRef(null);
 
-    const [state, setState] = React.useState<boolean>(false);
+    const [cartDrawer, setCartDrawer] = useState<boolean>(false);
+    const [searchDrawer, setSearchDrawer] = useState<boolean>(false);
+    const [menuDrawer, setMenuDrawer] = useState<boolean>(false);
 
-    const toggleDrawer = (open: boolean) =>
+    const cartToggleDrawer = (open: boolean) =>
         (event: React.KeyboardEvent | React.MouseEvent) => {
             if (
                 event.type === 'keydown' &&
@@ -24,9 +32,43 @@ const Header: FC = () => {
                 return;
             }
 
-            setState(open);
+            setCartDrawer(open);
         };
 
+    const menuToggleDrawer = (open: boolean) =>
+        (event: React.KeyboardEvent | React.MouseEvent) => {
+            if (
+                event.type === 'keydown' &&
+                ((event as React.KeyboardEvent).key === 'Tab' ||
+                    (event as React.KeyboardEvent).key === 'Shift')
+            ) {
+                return;
+            }
+
+            setMenuDrawer(open);
+        };
+
+    const searchToggleDrawer = (open: any) => (event: any) => {
+        setSearchDrawer(open);
+    };
+
+    const handleOutsideClick = (event: any) => {
+        if (searchDrawerRef.current && !(searchDrawerRef.current as any).contains(event.target)) {
+            setSearchDrawer(false);
+        }
+    };
+
+    useEffect(() => {
+        if (searchDrawer) {
+            document.addEventListener('mousedown', handleOutsideClick);
+        } else {
+            document.removeEventListener('mousedown', handleOutsideClick);
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick);
+        };
+    }, [searchDrawer]);
 
     return (
         <header className="main__header">
@@ -66,7 +108,9 @@ const Header: FC = () => {
                                 <div className="header-top-end">
                                     <ul>
                                         <li>
-                                            <a href="#">
+                                            <a
+                                                className='cursor-pointer'
+                                                onClick={searchToggleDrawer(true)}>
                                                 <svg
                                                     width="50px"
                                                     height="50px"
@@ -86,7 +130,7 @@ const Header: FC = () => {
                                         <li>
                                             <a
                                                 className='cursor-pointer'
-                                                onClick={toggleDrawer(true)}
+                                                onClick={cartToggleDrawer(true)}
                                                 data-bs-toggle="offcanvas"
                                                 data-bs-target="#offcanvasRight"
                                                 aria-controls="offcanvasRight"
@@ -426,7 +470,7 @@ const Header: FC = () => {
                                                                     <Link href="/about">ABOUT US</Link>
                                                                 </li>
                                                                 <li>
-                                                                    <a href="/find-store">FIND A STORE</a>
+                                                                    <Link href="/find-store">FIND A STORE</Link>
                                                                 </li>
                                                             </ul>
                                                         </nav>
@@ -439,6 +483,7 @@ const Header: FC = () => {
                                         <button
                                             type="button"
                                             className="tp-header-action-btn tp-offcanvas-open-btn"
+                                            onClick={menuToggleDrawer(true)}
                                         >
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
@@ -478,17 +523,39 @@ const Header: FC = () => {
                     </div>
                 </div>
             </div>
+
+            <Drawer
+                anchor="top"
+                open={searchDrawer}
+                onClose={searchToggleDrawer(false)}
+                ref={searchDrawerRef}
+            >
+                <SearchDrawer
+                />
+            </Drawer>
+
             <Drawer
                 anchor='right'
-                open={state}
-                onClose={toggleDrawer(false)}
+                open={cartDrawer}
+                onClose={cartToggleDrawer(false)}
             >
-                <Cart
-                    toggleDrawer={toggleDrawer}
+                <CartDrawer
+                    cartToggleDrawer={cartToggleDrawer}
+                />
+            </Drawer>
+
+            <Drawer
+                anchor='right'
+                open={menuDrawer}
+                onClose={menuToggleDrawer(false)}
+            >
+                <MenuDrawer
+                    menuToggleDrawer={menuToggleDrawer}
                 />
             </Drawer>
         </header>
     )
 }
 
-export default Header
+export default Header;
+

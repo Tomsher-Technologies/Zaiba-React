@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 import CancelPresentationRoundedIcon from '@mui/icons-material/CancelPresentationRounded';
 import BackupOutlinedIcon from '@mui/icons-material/BackupOutlined';
-import { ImageInputProps } from '@/types/ImageInputProps';
+import { ImageInputProps } from '@/types/common/ImageInputProps';
 
 const ImageInput: React.FC<ImageInputProps> = ({
     label = '',

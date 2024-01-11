@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { InfoOutlined } from '@mui/icons-material';
 
-import { ContentsDeleteProps } from '@/types/AlertProps';
+import { ContentsDeleteProps } from '@/types/common/AlertProps';
 import { DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 
 export const ContentsDelete: FC<ContentsDeleteProps> = ({ contents }) => {

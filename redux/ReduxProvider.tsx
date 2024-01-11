@@ -1,20 +1,22 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { FC, ReactNode, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { Provider } from 'react-redux';
+import { Provider, useSelector } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 
-import store from '@/redux/store';
+import store, { RootState } from '@/redux/store';
 import { setUser, } from '@/redux/userSlice';
-import authStorage from '@/server_api/storage';
+import authStorage, { getData, storeData } from '@/server_api/storage';
 
 interface ReduxProviderProps {
   children: ReactNode;
 }
 
-const ReduxProvider: React.FC<ReduxProviderProps> = ({ children }) => {
+const ReduxProvider: FC<ReduxProviderProps> = ({ children }) => {
   const router = useRouter();
 
   useEffect(() => {
-    loadUserSession()
+    loadUserSession();
+    loadUuID();
   }, []);
 
   const loadUserSession = async () => {
@@ -24,6 +26,15 @@ const ReduxProvider: React.FC<ReduxProviderProps> = ({ children }) => {
     }
   };
 
+  const loadUuID = async () => {
+    const getuuid = await getData('medon_uuid');
+    if (!getuuid) {
+      const uuid = uuidv4();
+      storeData('medon_uuid', uuid);
+    }
+  };
+
+ 
   return (
     <Provider store={store}>
       {children}

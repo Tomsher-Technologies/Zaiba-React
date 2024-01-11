@@ -3,7 +3,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import CircularProgress from '@mui/material/CircularProgress';
 import TextField from '@mui/material/TextField';
 
-import { SelectLookupProps } from "@/types/CommonInputTextProps";
+import { SelectLookupProps } from "@/types/common/CommonInputTextProps";
 import { colors } from "@/constants/colors";
 import { Box } from "@mui/material";
 
@@ -55,7 +55,7 @@ const SelectLookup: FC<SelectLookupProps> = ({
 
     return (
         <Box>
-            {labelText.trim() != "" && <div className={` mb-2 ${labelClassName}`}>{labelText}{required && <span className='text-red-600'>*</span>}</div>}
+            {labelText.trim() != "" && <div className={` mb-2 font-semibold ${labelClassName}`}>{labelText}{required && <span className='text-red-600'>*</span>}</div>}
             <Autocomplete
                 disablePortal
                 autoFocus={autoFocus}

@@ -1,17 +1,27 @@
 
 import axios from "axios";
 import Router from "next/router";
-import { getToken } from "@/server_api/storage";
+
+import { getData, getToken } from "@/server_api/storage";
 import { baseURL } from "@/server_api/config/api.endpoints";
 
 const serverConnectAPI = axios.create({
     baseURL: baseURL,
-    headers: { "Content-Type": "application/json;charset=UTF-8", Accept: "*/*" },
+    // headers: { "Content-Type": "application/json;charset=UTF-8", Accept: "application/json" },
+    headers: { "Content-Type": "multipart/form-data", Accept: "*/*" },
 });
 
 serverConnectAPI.interceptors.request.use(async function (config: any) {
     const authToken = await getToken();
-    config.headers["x-auth-token"] = authToken;
+    const uuid = await getData('medon_uuid');
+
+    config.headers["Authorization"] = `Bearer ${authToken}`;
+    config.headers["UserToken"] = uuid;
+    // console.log('config.headers', config.headers);
+
+    // config.headers = {
+    //     "Authorization": `Bearer ${authToken}`
+    // }
     return config;
 }, function (error) {
 
@@ -25,7 +35,7 @@ serverConnectAPI.interceptors.response.use(async function (response: any) {
             if ((response.data.status === false) && (response.data.message !== "")) {
                 throw response.data.message;
             } else {
-                if (response.data){
+                if (response.data) {
                     return response.data;
                 } else {
                     return response;
@@ -72,6 +82,8 @@ serverConnectAPI.interceptors.response.use(async function (response: any) {
     }
     return Promise.reject(error);
 });
+
+
 
 // function (error) {
 //     if (error && error.response) {

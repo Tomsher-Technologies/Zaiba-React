@@ -1,6 +1,8 @@
 import React, { FC } from 'react';
 
-const Wishlist: FC = () => {
+import { WishlistProps } from '@/types/Account';
+
+const Wishlist: FC<WishlistProps> = ({ user }) => {
     return (
         <div
             className="tab-pane fade show active"

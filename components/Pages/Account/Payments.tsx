@@ -1,6 +1,8 @@
 import React, { FC } from 'react';
 
-const Payments: FC = () => {
+import { PaymentsProps } from '@/types/Account';
+
+const Payments: FC<PaymentsProps> = ({ user }) => {
     return (
         <div
             className="tab-pane fade show active"

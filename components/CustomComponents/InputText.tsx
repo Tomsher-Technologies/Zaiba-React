@@ -1,7 +1,7 @@
 
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { CommonInputTextProps } from '@/types/CommonInputTextProps';
+import { CommonInputTextProps } from '@/types/common/CommonInputTextProps';
 import { colors } from '@/constants/colors';
 
 
@@ -16,7 +16,7 @@ const InputText: React.FC<CommonInputTextProps> = (props) => {
         type = "text",
         placeholder,
         autoComplete = "off",
-        borderRadius = "5px",
+        borderRadius = "",
         autoFocus = false,
         required = true,
         disabled = false,
@@ -26,21 +26,23 @@ const InputText: React.FC<CommonInputTextProps> = (props) => {
         multiline = false,
         rows,
         maxRows,
-        bgColor = '',
+        bgColor = 'primary',
         color = "primary",
         borderColor = "",
         focusedBorderColor = colors.primaryColor,
         labelColor = colors.primaryColor,
+        placeholderFontSize = '14px',
         inputWidth = '37ch',
         textFieldSize = "small",
         endAdornment = false,
         startAdornment = false,
-        onChange = (e) => { },
-        onKeyPress = (e) => { },
+        textPadding = '',
+        onChange = (e: any) => { },
+        onKeyPress = (e: any) => { },
     } = props;
 
     const disabledLabelStyle = {
-        color: disabled ? '#000000' : '',
+        color: disabled ? '#00000055' : '',
     };
 
     // const defaultOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -81,7 +83,7 @@ const InputText: React.FC<CommonInputTextProps> = (props) => {
                 autoComplete={autoComplete}
             >
                 <div className='mb-4'>
-                    {labelText.trim() != "" && <div className={`mb-2 ${labelClassName}`}>{labelText}{required && <span className='text-red-600'>*</span>}</div>}
+                    {labelText.trim() != "" && <div className={`mb-2 text-textPrimary ${labelClassName}`}>{labelText}{required && <span className='text-red-600'>*</span>}</div>}
                     <TextField
                         // id="outlined-basic"
                         name={name}
@@ -98,13 +100,25 @@ const InputText: React.FC<CommonInputTextProps> = (props) => {
                         // helperText={error || helperText}
                         InputProps={{
                             readOnly: readOnly,
-                            endAdornment: endAdornment,
+                            endAdornment: (
+                                <div className="flex items-center justify-center ">{endAdornment}</div>
+                            ),
                             startAdornment: startAdornment,
                             style: {
                                 borderRadius: borderRadius,
-                                overflow: "hidden"
+                                overflow: "hidden",
+                                textAlign: 'left',
+                                padding: textPadding,
+                                fontSize: placeholderFontSize,
                             },
-                            inputProps: { min: "0", max: "10", step: "1" }
+                            inputProps: {
+                                min: "0", max: "10", step: "1",
+                                style: {
+                                    textAlign: 'left', // Center-align placeholder
+                                    fontSize: placeholderFontSize,
+                                    // fontWeight: 'bold'
+                                },
+                            }
                             // startAdornment: type === 'password' && (
                             //     <InputAdornment position="start">
                             //       <IconButton onClick={togglePasswordVisibility}>
@@ -121,22 +135,26 @@ const InputText: React.FC<CommonInputTextProps> = (props) => {
                         onKeyPress={handleKeyPress}
                         color={color}
                         sx={{
-                            fieldset: { borderColor: borderColor ?? 'primary' },
+                            fieldset: { borderColor: borderColor ?? 'primary', backgroundColor: bgColor, overflow: "hidden", },
                             "& .MuiInputBase-input.Mui-disabled": {
-                                WebkitTextFillColor: "#000000",
+                                WebkitTextFillColor: "green",
                             },
                             "& .MuiOutlinedInput-root": {
                                 "&.Mui-focused fieldset": {
                                     borderColor: focusedBorderColor
                                 }
                             },
+                            "& .MuiInputBase-root.MuiOutlinedInput-root ::placeholder": {
+                                color: "black",
+                                fontWeight: '600'
+                            },
                             "& label.Mui-focused": {
                                 color: labelColor
                             },
-                            "& input::placeholder": {
-                                fontSize: "12px",
-                                color: 'black',
+                            '& .MuiFormLabel-root': {
+                                fontSize: '0.8rem',
                             },
+
                             // '& .MuiInputBase-root.Mui-disabled': {
                             backgroundColor: bgColor ? bgColor : '',
                             // },

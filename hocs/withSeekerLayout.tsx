@@ -2,18 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 
-const SeekerLayout = dynamic(() => import('@/components/layouts/CareerLayout'));
 const MainLayout = dynamic(() => import('@/components/Layouts/MainLayout'));
 
-import ObjectIsEmpty from '@/utils/isObjectEmpty';
 
 import authStorage from '@/server_api/storage';
 
-const withVendorLayout = (WrappedComponent: React.ComponentType) => {
-    const WithVendorLayout: React.FC = (props) => {
+const withAuthLayout = (WrappedComponent: React.ComponentType) => {
+    const WithAuthLayout: React.FC = (props) => {
         const router = useRouter();
+        const { rd } = router.query;
 
         const [user, setUser] = useState(null);
+
 
         useEffect(() => {
             getUserSession()
@@ -23,34 +23,20 @@ const withVendorLayout = (WrappedComponent: React.ComponentType) => {
             const loggedUser = await authStorage.getUser();
             setUser(user);
             if (!loggedUser) {
-                router.push('/');
+                router.push('/signin?rd=' + rd ? rd : (router.asPath) as any);
                 return null;
-                if (ObjectIsEmpty(loggedUser)) {
-                    router.push('/login');
-                    return null;
-                }
             }
         };
 
         return (
-            <>
-                {user &&
-                    <SeekerLayout>
-                        <WrappedComponent {...props} />
-                    </SeekerLayout>
-                    ||
-                    <MainLayout>
-                        <WrappedComponent {...props} />
-                    </MainLayout>
-
-                }
-            </>
-
+            <MainLayout>
+                <WrappedComponent {...props} />
+            </MainLayout>
         )
 
     };
 
-    return WithVendorLayout;
+    return WithAuthLayout;
 };
 
-export default withVendorLayout;
+export default withAuthLayout;

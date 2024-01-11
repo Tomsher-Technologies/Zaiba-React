@@ -206,8 +206,9 @@ section {
       display: flex;
       align-items: center;
       gap: 20px;
-
       margin: 20px 0;
+
+      @media (max-width: 767.98px) { flex-wrap: wrap;}
 
       label {
         font-size: 14px;
@@ -620,6 +621,10 @@ section {
       align-items: center;
       gap: 20px;
 
+      span{
+        min-width: 115px;
+      }
+
       a {
         display: flex;
         align-items: center;
@@ -743,9 +748,12 @@ section {
   &.zb-login-area {
     padding: 50px;
 
+    @media (max-width: 767.98px) { padding: 15px;}
+
     .zb-login-warpper {
       box-shadow: 0px 30px 70px rgba(1, 15, 28, 0.1);
       padding: 50px 60px 70px;
+      @media (max-width: 767.98px) { padding: 15px;}
 
       .form-check-input {
         &:checked {
@@ -945,6 +953,24 @@ section{
         background-color: $color_white;
         margin-top: 3px;
 
+        .zb-card-payment{
+
+          .zb-card-payment-info{
+
+            .card{
+              border: 0;
+              border-radius: 0;
+              border-bottom: 1px solid #e7eaec;
+
+              .form-control{
+                padding: 11px 15px;
+                font-size: 15px;
+                border-radius: 0;
+              }
+            }
+          }
+        }
+
 
         .form-check{
 
@@ -960,11 +986,15 @@ section{
   align-items: center;
   gap: 20px;
 
+  @media (max-width: 767.98px) { flex-wrap: wrap;}
+
   .zb-added-address{
     padding: 20px;
     border: 1px solid #e7eaec;
     border-radius: 6px;
     flex-basis: 50%;
+
+    @media (max-width: 767.98px) { flex-basis: 100%;}
 
     span{
 
@@ -998,12 +1028,19 @@ section{
   a{
 
     &.zb-add-address-btn{
-      padding: 57px 50px;
-      border: 2px dashed $color_secondary;
-      display: inline-block;
+      border: 2px dashed #E7B730;
       border-radius: 6px;
-      font-size: 30px;
-      color: $color_secondary;
+      color: #E7B730;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      width: 280px;
+      height: 150px;
+      justify-content: center;
+
+      .bi{
+        font-size: 30px;
+      }
 
       &:hover{
         background-color: $color_secondary;
@@ -1560,6 +1597,88 @@ section{
         top: 10px;
     left: 15px;
       }
+    }
+  }
+}
+
+
+
+section{
+  &.wishlist-list-area{
+padding: 80px 0;
+  }
+}
+
+section{
+
+  &.order-success-section{
+    height: 400px;
+    display: flex;
+    align-items: center;
+
+    .card{
+      padding: 60px;
+      box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+      border: 0;
+
+      h3{
+        font-size: 40px;
+        color: #1F4932;
+      }
+    }
+  }
+}
+
+
+.address-offcanvas{
+  width: 500px!important;
+
+  .offcanvas-header{
+    padding-bottom: 0;
+
+    h5#offcanvasRightLabel {
+      color: #7f7f7f;
+      font-size: 18px;
+  }
+  }
+
+  .zb-add-address-inner{
+
+    .zb-add-address-top{
+
+      .form-control{
+        padding: 11px 15px 11px 50px;
+        border-radius: 0;
+        font-size: 15px;
+      }
+
+    }
+
+    .zb-address-information{
+
+      h5{
+        margin: 10px 0;
+        color: #7f7f7f;
+        font-size: 18px;
+      }
+    }
+
+    .form-control{
+      padding: 11px 15px;
+      border-radius: 0;
+      font-size: 15px;
+    }
+
+    small {
+      font-size: 13px;
+      color: #8c8b8b;
+  }
+
+    .zb-search-icon{
+      position: absolute;
+      position: absolute;
+    top: 10px;
+    left: 10px;
     }
   }
 }

@@ -1,3 +1,5 @@
+import { AlertColor } from "@mui/material";
+
 export interface AlertDialogSlideProps {
     nots?: any;
     isOpen?: boolean;
@@ -21,4 +23,17 @@ export interface ErrorAlertProps {
 
 export interface SuccessAlertProps {
     contents: any
+}
+
+
+export interface SnackbarAlertProps {
+    content: any;
+    messagesEnable?: boolean;
+    setMessagesEnable?: any;
+    type?: AlertColor | any;
+}
+
+export interface SnackbarSuccessAlertProps {
+    handleClose: any;
+    content: any
 }

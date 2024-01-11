@@ -5,7 +5,7 @@ import TextField from '@mui/material/TextField';
 import { Box, Checkbox } from "@mui/material";
 import { CheckBox, CheckBoxOutlineBlank } from "@mui/icons-material";
 
-import { SearchLookupMultipleProps, SelectLookupProps } from "@/types/CommonInputTextProps";
+import { SearchLookupMultipleProps, SelectLookupProps } from "@/types/common/CommonInputTextProps";
 import { colors } from "@/constants/colors";
 
 
@@ -58,7 +58,7 @@ const SearchLookupMultiple: FC<SearchLookupMultipleProps> = ({
 
     return (
         <Box>
-            {labelText.trim() != "" && <div className={` mb-2 ${labelClassName}`}>{labelText}{required && <span className='text-red-600'>*</span>}</div>}
+            {labelText.trim() != "" && <div className={` mb-2 font-semibold ${labelClassName}`}>{labelText}{required && <span className='text-red-600'>*</span>}</div>}
 
             <Autocomplete
                 multiple

@@ -34,7 +34,19 @@ $('.main-banner').owlCarousel({
           items:5,
           nav:true,
           loop:false
-      }
+      },
+      1200:{
+        items:4,
+        nav:true,
+        loop:false
+    },
+      1366:{
+        items:4,
+        nav:true,
+        loop:false
+    },
+
+      
   }
   });
 
@@ -278,19 +290,6 @@ var quantityInput = (function () {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 $(".toggle-password").click(function() {
     $(this).toggleClass("bi-eye bi-eye-slash");
     input = $(this).parent().find("input");
@@ -300,3 +299,141 @@ $(".toggle-password").click(function() {
         input.attr("type", "password");
     }
 });
+
+
+	////////////////////////////////////////////////////
+	// 02. Mobile Menu Js
+	$('#mobile-menu').meanmenu({
+		meanMenuContainer: '.mobile-menu',
+		meanScreenWidth: "991",
+		meanExpand: ['<i class="fa-regular fa-angle-right"></i>'],
+	});
+
+	$('#mobile-menu-lg').meanmenu({
+		meanMenuContainer: '.mobile-menu-lg',
+		meanScreenWidth: "1199",
+		meanExpand: ['<i class="fa-regular fa-angle-right"></i>'],
+	});
+
+
+
+    	////////////////////////////////////////////////////
+	// 04. Menu Controls JS
+	if($('.tp-category-menu-content').length && $('.tp-category-mobile-menu').length){
+		let navContent = document.querySelector(".tp-category-menu-content").outerHTML;
+		let mobileNavContainer = document.querySelector(".tp-category-mobile-menu");
+		mobileNavContainer.innerHTML = navContent;
+	
+		$('.tp-offcanvas-category-toggle').on('click', function(){
+			$(this).siblings().find('nav').slideToggle();
+		});
+		
+	
+		let arrow = $(".tp-category-mobile-menu .has-dropdown > a");
+	
+		arrow.each(function () {
+			let self = $(this);
+			let arrowBtn = document.createElement("BUTTON");
+			arrowBtn.classList.add("dropdown-toggle-btn");
+			arrowBtn.innerHTML = "<i class='fa-regular fa-angle-right'></i>";
+	
+			self.append(function () {
+			  return arrowBtn;
+			});
+	
+			self.find("button").on("click", function (e) {
+			  e.preventDefault();
+			  let self = $(this);
+			  self.toggleClass("dropdown-opened");
+			  self.parent().toggleClass("expanded");
+			  self.parent().parent().addClass("dropdown-opened").siblings().removeClass("dropdown-opened");
+			  self.parent().parent().children(".tp-submenu").slideToggle();
+			  
+	
+			});
+	
+		  });
+	}
+
+	if($('.tp-main-menu-content').length && $('.tp-main-menu-mobile').length){
+		let navContent = document.querySelector(".tp-main-menu-content").outerHTML;
+		let mobileNavContainer = document.querySelector(".tp-main-menu-mobile");
+		mobileNavContainer.innerHTML = navContent;
+	
+	
+		let arrow = $(".tp-main-menu-mobile .has-dropdown > a");
+	
+		arrow.each(function () {
+			let self = $(this);
+			let arrowBtn = document.createElement("BUTTON");
+			arrowBtn.classList.add("dropdown-toggle-btn");
+			arrowBtn.innerHTML = "<i class='fa-regular fa-angle-right'></i>";
+	
+			self.append(function () {
+			  return arrowBtn;
+			});
+	
+			self.find("button").on("click", function (e) {
+			  e.preventDefault();
+			  let self = $(this);
+			  self.toggleClass("dropdown-opened");
+			  self.parent().toggleClass("expanded");
+			  self.parent().parent().addClass("dropdown-opened").siblings().removeClass("dropdown-opened");
+			  self.parent().parent().children(".tp-submenu").slideToggle();
+			  
+	
+			});
+	
+		  });
+	}
+
+	$(".tp-category-menu-toggle").on("click", function () {
+		$(".tp-category-menu > nav > ul").slideToggle();
+	});
+
+
+
+	////////////////////////////////////////////////////
+	// 05. Offcanvas Js
+	$(".tp-offcanvas-open-btn").on("click", function () {
+		$(".offcanvas__area").addClass("offcanvas-opened");
+		$(".body-overlay").addClass("opened");
+	});
+	$(".offcanvas-close-btn").on("click", function () {
+		$(".offcanvas__area").removeClass("offcanvas-opened");
+		$(".body-overlay").removeClass("opened");
+	});
+
+
+	////////////////////////////////////////////////////
+	// 06. Search Js
+	$(".tp-search-open-btn").on("click", function () {
+		$(".tp-search-area").addClass("opened");
+		$(".body-overlay").addClass("opened");
+	});
+	$(".tp-search-close-btn").on("click", function () {
+		$(".tp-search-area").removeClass("opened");
+		$(".body-overlay").removeClass("opened");
+	});
+
+    	// 09. Body overlay Js
+	$(".body-overlay").on("click", function () {
+		$(".offcanvas__area").removeClass("offcanvas-opened");
+		$(".tp-search-area").removeClass("opened");
+		$(".cartmini__area").removeClass("cartmini-opened");
+		$(".tp-filter-offcanvas-area").removeClass("offcanvas-opened");
+		$(".body-overlay").removeClass("opened");
+	});
+
+
+
+
+
+
+
+
+
+
+
+
+

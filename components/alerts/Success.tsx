@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import { CheckCircleOutlineOutlined } from '@mui/icons-material';
 
-import { SuccessAlertProps } from '@/types/AlertProps';
+import { SuccessAlertProps } from '@/types/common/AlertProps';
 
 const Success: FC<SuccessAlertProps> = ({ contents }) => {
     return (

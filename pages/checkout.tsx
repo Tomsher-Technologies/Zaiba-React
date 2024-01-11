@@ -21,7 +21,6 @@ const Checkout: FC = () => {
                     </div>
                 </div>
             </section>
-
         </Fragment>
     )
 }

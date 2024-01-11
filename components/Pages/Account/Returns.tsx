@@ -1,6 +1,8 @@
 import React, { FC } from 'react';
 
-const Returns: FC = () => {
+import { ReturnsProps } from '@/types/Account';
+
+const Returns: FC<ReturnsProps> = ({ user }) => {
     return (
         <div
             className="tab-pane fade show active"

@@ -2,8 +2,9 @@ import React, { FC, useEffect, useState } from 'react'
 import Box from '@mui/material/Box';
 
 import { CartProps } from '@/types/CartProps';
+import Link from 'next/link';
 
-const Cart: FC<CartProps> = ({ toggleDrawer }) => {
+const Cart: FC<CartProps> = ({ cartToggleDrawer }) => {
     const [screenWidth, setScreenWidth] = useState<number>(1024)
 
     useEffect(() => {
@@ -32,8 +33,8 @@ const Cart: FC<CartProps> = ({ toggleDrawer }) => {
                         className="btn-close"
                         data-bs-dismiss="offcanvas"
                         aria-label="Close"
-                        onClick={toggleDrawer(false)}
-                        onKeyDown={toggleDrawer(false)}
+                        onClick={cartToggleDrawer(false)}
+                        onKeyDown={cartToggleDrawer(false)}
                     />
                 </div>
                 <div className="offcanvas-body">
@@ -90,14 +91,14 @@ const Cart: FC<CartProps> = ({ toggleDrawer }) => {
                                                 </li>
                                             </ul>
                                         </div>
-                                        <a href="/cart" className="btn btn-login w-100">
+                                        <Link href="/cart" className="btn btn-login w-100">
                                             {" "}
                                             View Cart
-                                        </a>
-                                        <a href="/checkout" className="btn btn-checkout w-100 mt-3">
+                                        </Link>
+                                        <Link href="/checkout" className="btn btn-checkout w-100 mt-3">
                                             {" "}
                                             Checkout
-                                        </a>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>

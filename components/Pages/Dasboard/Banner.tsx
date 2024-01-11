@@ -37,17 +37,17 @@ const Banner: FC = () => {
 
     return (
         <section className="banner-section relative">
+            <button
+                className="absolute top-[35%] md:top-[30%] lg:top-[35%] 2xl:top-[50%]  left-5 transform -translate-y-1/2 z-[99] p-2 rounded-md"
+                onClick={() => (carouselRef as any).current.slidePrev()}>
+                <Image className='w-24 h-24'
+                    src="/svg/arrowleftwhite.svg"
+                    width="50"
+                    height="50"
+                    alt='left'
+                />
+            </button>
             <div className="relative main-banner ">
-                <button
-                    data-carousel="important-notes"
-                    data-target="prev"
-                    className="absolute top-[35%] md:top-[30%] lg:top-[35%] 2xl:top-[50%]  left-5 transform -translate-y-1/2 z-[99] p-2 rounded-md"
-                    onClick={() => (carouselRef as any).current.slidePrev()}>
-                    <img
-                        src="/svg/arrowleftwhite.svg"
-
-                    />
-                </button>
                 <AliceCarousel
                     autoPlay
                     renderDotsItem={renderDots as any}
@@ -128,17 +128,19 @@ const Banner: FC = () => {
                         </div>
                     </div>
                 </AliceCarousel>
-                <button
-                    data-carousel="important-notes"
-                    data-target="next"
-                    className="absolute  top-[35%] md:top-[30%] lg:top-[35%] 2xl:top-[50%] right-4 transform -translate-y-1/2 z-[99] "
-                    onClick={() => (carouselRef as any).current.slideNext()}>
-                    <img
-                        src="/svg/arrowrightwhite.svg"
-
-                    />
-                </button>
             </div>
+            <button
+                data-carousel="important-notes"
+                data-target="next"
+                className="absolute  top-[35%] md:top-[30%] lg:top-[35%] 2xl:top-[50%] right-4 transform -translate-y-1/2 z-[99] "
+                onClick={() => (carouselRef as any).current.slideNext()}>
+                <Image className='w-24 h-24'
+                    src="/svg/arrowrightwhite.svg"
+                    width="50"
+                    height="50"
+                    alt='right'
+                />
+            </button>
         </section>
     )
 }

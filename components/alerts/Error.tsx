@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import { InfoOutlined } from '@mui/icons-material';
 
-import { ErrorAlertProps } from '@/types/AlertProps';
+import { ErrorAlertProps } from '@/types/common/AlertProps';
 
 const Error: FC<ErrorAlertProps> = ({ contents }) => {
   return (

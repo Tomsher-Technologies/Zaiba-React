@@ -6,7 +6,7 @@ import { TransitionProps } from '@mui/material/transitions';
 
 import Button from './Button';
 
-import { AlertDialogSlideProps } from '@/types/AlertProps';
+import { AlertDialogSlideProps } from '@/types/common/AlertProps';
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {

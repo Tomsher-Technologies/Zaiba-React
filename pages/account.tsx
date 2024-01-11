@@ -1,33 +1,43 @@
 import React, { FC, Fragment, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
 
 import withMainLayout from '@/hocs/withMainLayout';
 const InnerStrip = dynamic(() => import('@/components/Pages/Products/InnerStrip'));
 const Profile = dynamic(() => import('@/components/Pages/Account/Profile'));
 const Orders = dynamic(() => import('@/components/Pages/Account/Orders'));
 const Returns = dynamic(() => import('@/components/Pages/Account/Returns'));
-const Addresses = dynamic(() => import('@/components/Pages/Account/Addresses'));
+const Addresses = dynamic(() => import('@/components/Pages/Account/AddAddresses'));
 const Wishlist = dynamic(() => import('@/components/Pages/Account/Wishlist'));
 const Payments = dynamic(() => import('@/components/Pages/Account/Payments'));
 
 import { accountMenu } from '@/utiles/constArrays';
+import { RootState } from '@/redux/store';
 
 const Account: FC = () => {
+    const user = useSelector((state: RootState) => state.user);
     const router = useRouter();
     const { type = 'profile' } = router?.query;
 
     const [menuSelect, setMenuSelect] = useState<string | string[] | undefined>('profile');
+    const [userDataLoaded, setUserDataLoaded] = useState(false);
 
     useEffect(() => {
-        if (router.isReady && router.query) {
-            setMenuSelect(type)
+        if ((router.isReady && router.query) && ((user) && (user.name !== null))) {
+            setMenuSelect(type);
         }
+    }, [router, user]);
 
-    }, [router]);
 
-    console.log('router', router);
-
+    // console.log('user', user);
+    const handle_routerRedirect = (menu: any) => {
+        if ((user) && (user.name !== null)) {
+            router.push('/account?type=' + menu.value);
+        } else {
+            router.push(`/login?rd=/account?type=${menu.value}`);
+        }
+    }
 
     return (
         <Fragment>
@@ -57,7 +67,7 @@ const Account: FC = () => {
                                                 role="tab"
                                                 aria-controls="v-pills-profile"
                                                 aria-selected="true"
-                                                onClick={() => router.push('/account?type=' + menu.value)}
+                                                onClick={() => handle_routerRedirect(menu)}
                                             >
                                                 <i className={menu.icon} /> {menu.title}
                                             </button>
@@ -65,17 +75,17 @@ const Account: FC = () => {
                                     </div>
                                     <div className="tab-content" id="v-pills-tabContent">
                                         {menuSelect === 'profile' &&
-                                            <Profile />
+                                            <Profile user={user} />
                                             || menuSelect === 'orders' &&
-                                            <Orders />
+                                            <Orders user={user} />
                                             || menuSelect === 'returns' &&
-                                            <Returns />
+                                            <Returns user={user} />
                                             || menuSelect === 'addresses' &&
-                                            <Addresses />
+                                            <Addresses user={user} />
                                             || menuSelect === 'wishlist' &&
-                                            <Wishlist />
+                                            <Wishlist user={user} />
                                             || menuSelect === 'payments' &&
-                                            <Payments />
+                                            <Payments user={user} />
                                         }
                                     </div>
                                 </div>

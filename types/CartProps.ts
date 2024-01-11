@@ -1,3 +1,3 @@
 export interface CartProps {
-    toggleDrawer: any;
+    cartToggleDrawer: any;
 }

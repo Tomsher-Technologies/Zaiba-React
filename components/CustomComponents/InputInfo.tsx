@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { InputInfoProps } from '@/types/CommonInputTextProps';
+import { InputInfoProps } from '@/types/common/CommonInputTextProps';
 
 const InputInfo: FC<InputInfoProps> = ({ label, content }) => {
     return (
