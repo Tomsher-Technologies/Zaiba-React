@@ -1,12 +1,88 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect, useState } from 'react'
+import dynamic from 'next/dynamic';
+import { useDispatch } from 'react-redux';
+import { useMutation } from '@tanstack/react-query';
+import { useFormik } from 'formik';
+import { FormControlLabel, InputAdornment, Radio, RadioGroup } from '@mui/material';
+
+import InputText from '@/components/CustomComponents/InputText';
+import Button from '@/components/CustomComponents/Button';
+const GoogleMapAPI = dynamic(() => import("@/components/API/GoogleMapAPI"));
 
 import { AddAddressProps } from '@/types/CheckoutProps';
+import { countryCode } from '@/utiles/constArraysAndVariables';
+import { setMessages } from '@/redux/messagesSlice';
+import { addressInitialValues } from '@/utiles/formik/accountFormik';
+import { profileValidationSchema } from '@/utiles/validations/accountSchema';
 
-const AddAddress: FC<AddAddressProps> = ({ addAddressToggleDrawer, onCloseDrawer }) => {
+import { apiEndpoints } from '@/server_api/config/api.endpoints';
+import PostAPI from '@/server_api/apifunctions/apipost';
+
+const AddAddress: FC<AddAddressProps> = ({ address, addAddressToggleDrawer, onCloseDrawer, }) => {
+    const dispatch = useDispatch();
+
+    const [errorMessages, setErrorMessages] = useState<string | null>(null);
+
+    const formik = useFormik({
+        initialValues: addressInitialValues,
+        validationSchema: profileValidationSchema,
+        onSubmit: (values: any) => {
+            updateAddress({ ...values, phone: '+971' + values.phone, apiEndpoint: values.address_id ? apiEndpoints.updateAddress : apiEndpoints.addAddress } as any)
+        },
+    });
+
+
+    const { data: updateResponse, mutate: updateAddress, isLoading: update_isLoading, error: profile_error } = useMutation<any>(PostAPI.postAPI, {
+        onSuccess: async (response: any) => {
+            setErrorMessages(null);
+            if (response.status) {
+                dispatch(setMessages({
+                    messages: response.message,
+                    type: 'success',
+                    from: 'add-edit-address',
+                }));
+            } else {
+                dispatch(setMessages({
+                    messages: response.message,
+                    type: 'error',
+                    from: 'add-edit-address',
+                }));
+            }
+        },
+        onError: (error: any) => {
+            setErrorMessages("Something went wrong.");
+        }
+    });
+
+    useEffect(() => {
+        address && initializeAddressFormikValues()
+    }), [address];
+
+    const initializeAddressFormikValues = () => {
+        //   console.log('formik', formik);
+
+        if ((address.id) && (!formik.values.address_id)) {
+            formik.setFieldValue('address_id', address.id);
+            formik.setFieldValue('name', address.name);
+            formik.setFieldValue('address', address.address);
+            if ((!formik.values.longitude) && (!formik.values.latitude)) {
+                formik.setFieldValue('longitude', address.lang);
+                formik.setFieldValue('latitude', address.lat);
+            }
+            if (address.phone.startsWith(countryCode)) {
+                formik.setFieldValue('phone', address.phone.slice(countryCode.length));
+            } else {
+                formik.setFieldValue('phone', address.phone);
+            }
+            formik.setFieldValue('type', address.type);
+            formik.setFieldValue('country_id', address.country_id);
+        }
+    }
+
     return (
         <div
             className="offcanvas-end address-offcanvas p-3"
-            tabIndex={-1}
+            key={formik?.values.address_id}
         >
             <div className="offcanvas-header">
                 <h5 className="offcanvas-title" id="offcanvasRightLabel">
@@ -21,7 +97,7 @@ const AddAddress: FC<AddAddressProps> = ({ addAddressToggleDrawer, onCloseDrawer
             </div>
             <div className="offcanvas-body">
                 <div className="zb-add-address-inner">
-                    <div className="zb-add-address-top">
+                    {/* <div className="zb-add-address-top">
                         <form>
                             <div className="mb-3 position-relative">
                                 <input
@@ -47,58 +123,102 @@ const AddAddress: FC<AddAddressProps> = ({ addAddressToggleDrawer, onCloseDrawer
                                 </svg>
                             </div>
                         </form>
-                    </div>
-                    <div className="zb-add-address-map">
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d231280.4131872772!2d55.06267957324777!3d25.07624244777802!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f43496ad9c645%3A0xbde66e5084295162!2sDubai!5e0!3m2!1sen!2sae!4v1691651372954!5m2!1sen!2sae"
-                            width="100%"
-                            height={350}
-                            style={{ border: 0 }}
-                            allowFullScreen
-                            loading="lazy"
-                            referrerPolicy="no-referrer-when-downgrade"
+                    </div> */}
+                    <div className="zb-add-address-map mt-8">
+                        <GoogleMapAPI
+                            formik={formik}
                         />
+                        {(formik?.errors?.latitude || formik?.errors?.longitude) && <div className='text-error text-[13px] pt-5 pl-[20px]'>{(formik as any).errors.latitude || (formik as any).errors.longitude}</div>}
                     </div>
-                    <div className="zb-address-information">
+                    <div className="zb-address-information mt-8">
                         <h5>Address Information</h5>
-                        <div className="mb-3">
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="formGroupExampleInput"
-                                placeholder="Street name"
+                        <div className="my-3">
+                            <InputText
+                                labelText="Full Name"
+                                placeholder="Enter full name"
+                                className="w-full  border "
+                                labelClassName='font-semibold'
+
+                                name="name"
+                                value={formik.values.name}
+                                onChange={formik.handleChange}
+                                error={formik?.touched?.name && formik.errors.name}
+                                textPadding='8px'
                             />
                         </div>
                         <div className="mb-3">
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="formGroupExampleInput2"
-                                placeholder="Building name"
+                            <InputText
+                                labelText="Phone"
+                                placeholder="Enter phone"
+                                className="w-full mt-"
+                                labelClassName='font-semibold'
+                                startAdornment={
+                                    <>
+                                        <InputAdornment position="start" >
+                                            <div className='flex justify-center items-center cursor-default pl-4 text-[15px] font-semibold text-textPrimary' >  +971</div>
+                                        </InputAdornment>
+                                    </>
+                                }
+                                name="phone"
+                                value={formik.values.phone}
+                                onChange={formik.handleChange}
+                                error={formik?.touched?.phone && formik.errors.phone}
+                                textPadding='8px'
                             />
                         </div>
                         <div className="mb-3">
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="formGroupExampleInput2"
-                                placeholder="Landmark (optional)"
-                            />
-                            <small>e.g metro station</small>
-                        </div>
-                        <div className="mb-3">
-                            <textarea
-                                className="form-control"
-                                id="exampleFormControlTextarea1"
-                                placeholder="Delivery Instructions (optional)"
+                            <InputText
+                                labelText="Address"
+                                placeholder="Enter address"
+                                className="w-full "
+                                labelClassName='font-semibold'
+                                multiline
                                 rows={3}
-                                defaultValue={""}
+
+                                name="address"
+                                value={formik.values.address}
+                                onChange={formik.handleChange}
+                                error={formik?.touched?.address && formik.errors.address}
+                                textPadding='18px'
                             />
-                            <small>Additional information (e.g. Leave outside door)</small>
                         </div>
-                        <a href="#" className="btn btn-add-address w-100">
+                        <div className="mb-3">
+                            <div className={`text-textPrimary mt-0 font-semibold`}>Address Type</div>
+                            <RadioGroup
+                                className='mt-2'
+                                aria-labelledby="demo-radio-buttons-group-label"
+                                value={formik.values.type}
+                                name="type"
+                                row
+                                onChange={formik.handleChange}
+                            >
+                                <FormControlLabel value="home" control={<Radio
+                                    sx={{
+                                        '& .MuiSvgIcon-root': {
+                                            fontSize: 15,
+                                        }
+                                    }} />} label={<span style={{ fontSize: '13px' }}>Home</span>} />
+                                <FormControlLabel value="work" control={<Radio
+                                    sx={{
+                                        '& .MuiSvgIcon-root': {
+                                            fontSize: 15,
+                                        }
+                                    }} />} label={<span style={{ fontSize: '13px' }}>Work</span>} />
+                                <FormControlLabel value="others" control={<Radio
+                                    sx={{
+                                        '& .MuiSvgIcon-root': {
+                                            fontSize: 15,
+                                        }
+                                    }} />} label={<span style={{ fontSize: '13px' }}>Others</span>} />
+                            </RadioGroup>
+                            {(formik?.touched?.type && formik?.errors?.type) && <div className='text-error text-[13px] mt-2 pl-[20px]'>{(formik as any).errors.type}</div>}
+                        </div>
+                        <Button
+                            onClick={() => formik.handleSubmit()}
+                            isLoading={update_isLoading}
+                            className="btn btn-add-address w-100">
                             ADD ADDRESS
-                        </a>
+                        </Button>
                     </div>
                 </div>
             </div>

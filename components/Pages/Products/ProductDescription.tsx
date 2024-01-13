@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { tabs } from '@/utiles/constArrays';
+import { tabs } from '@/utiles/constArraysAndVariables';
 
 const ProductDescription: FC = () => {
 

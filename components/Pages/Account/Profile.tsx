@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useFormik } from 'formik';
 
@@ -7,8 +8,9 @@ import Button from '@/components/CustomComponents/Button';
 import AlertDialogSlide from '@/components/CustomComponents/AlertDialogSlide';
 import Success from '@/components/alerts/Success';
 import ValidationErrorMessage from '@/components/CustomComponents/ValidationErrorMessage';
+const ChangePasswordModal = dynamic(() => import("@/components/Modals/ChangePasswordModal"));
 
-import { ProfileProps } from '@/types/Account';
+import { ProfileProps } from '@/types/AccountProps';
 import { profileValidationSchema } from '@/utiles/validations/accountSchema';
 import { profileFormik } from '@/utiles/formik/accountFormik';
 
@@ -22,6 +24,7 @@ const Profile: FC<ProfileProps> = ({ user }) => {
     const [enableEdit, setEnableEdit] = useState(false);
     const [alertSuccsess, setAlertSuccsess] = useState<boolean>(false);
     const [errorMessages, setErrorMessages] = useState<string | null>(null);
+    const [changePasswordModalEnable, setChangePasswordModalEnable] = useState<boolean>(false);
 
     const formik = useFormik({
         initialValues: profileFormik,
@@ -36,7 +39,6 @@ const Profile: FC<ProfileProps> = ({ user }) => {
         queryFn: () => FetchAPIData.fetchAPIData({ apiEndpoint: apiEndpoints.userProfile }),
         enabled: Boolean(user?.id)
     });
-
 
     const { data: updateResponse, mutate: updateProfile, isLoading: update_isLoading, error: profile_error } = useMutation<any>(PostAPI.postAPI, {
         onSuccess: async (response: any) => {
@@ -61,7 +63,6 @@ const Profile: FC<ProfileProps> = ({ user }) => {
         formik.setFieldValue('phone_number', data?.phone || '');
     }
 
-    console.log('formik', formik);
     return (
         <div
             className="tab-pane fade show active"
@@ -93,7 +94,7 @@ const Profile: FC<ProfileProps> = ({ user }) => {
                                     <InputText
                                         labelText="Full Name"
                                         placeholder="Enter full name"
-                                        className="w-full"
+                                        className="w-full mt-1"
                                         name="name"
                                         value={(userData as any)?.data?.name}
                                         disabled={!enableEdit}
@@ -105,7 +106,7 @@ const Profile: FC<ProfileProps> = ({ user }) => {
                                     <InputText
                                         labelText="Email"
                                         placeholder="Enter email"
-                                        className="w-full"
+                                        className="w-full mt-1"
                                         name="name"
                                         value={(userData as any)?.data?.email}
                                         disabled={!enableEdit}
@@ -145,13 +146,21 @@ const Profile: FC<ProfileProps> = ({ user }) => {
                         </div>
                     }
                     <div className="zb-profile-bottom">
-                        <a href="#" className="btn btn-password w-25">
+                        <a className="btn btn-password w-25" onClick={() => setChangePasswordModalEnable(!changePasswordModalEnable)}>
                             Change Password
                         </a>
                         <a href="#" className="btn btn-delete">
                             Delete account
                         </a>
                     </div>
+
+                    {changePasswordModalEnable &&
+                        <ChangePasswordModal
+                            address={userData?.data}
+                            isOpen={changePasswordModalEnable}
+                            setIsOpen={setChangePasswordModalEnable}
+                        />
+                    }
                 </APIFetch>
 
             </APIFetch>

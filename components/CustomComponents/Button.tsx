@@ -34,7 +34,7 @@ const Button: React.FC<ButtonPropsWithIcons> = ({
       endIcon={endIcon}
       size={size}
       // sx={{ width: 300, padding: 1, margin: 2 }}
-      style={{ textTransform: 'none', borderRadius: 50 }}
+      style={{ textTransform: 'none' }}
       disabled={isLoading || props.disabled}
     // style={{textTransform: 'none', width: width, height: height}}
     >

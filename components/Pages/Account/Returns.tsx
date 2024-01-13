@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { ReturnsProps } from '@/types/Account';
+import { ReturnsProps } from '@/types/AccountProps';
 
 const Returns: FC<ReturnsProps> = ({ user }) => {
     return (

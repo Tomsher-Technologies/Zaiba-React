@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { PaymentsProps } from '@/types/Account';
+import { PaymentsProps } from '@/types/AccountProps';
 
 const Payments: FC<PaymentsProps> = ({ user }) => {
     return (

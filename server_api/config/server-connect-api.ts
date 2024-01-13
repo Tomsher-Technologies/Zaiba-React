@@ -7,13 +7,13 @@ import { baseURL } from "@/server_api/config/api.endpoints";
 
 const serverConnectAPI = axios.create({
     baseURL: baseURL,
-    // headers: { "Content-Type": "application/json;charset=UTF-8", Accept: "application/json" },
     headers: { "Content-Type": "multipart/form-data", Accept: "*/*" },
+    // headers: { "Content-Type": "application/json;charset=UTF-8", Accept: "application/json" },
 });
 
 serverConnectAPI.interceptors.request.use(async function (config: any) {
     const authToken = await getToken();
-    const uuid = await getData('medon_uuid');
+    const uuid = await getData('zaiba_uuid');
 
     config.headers["Authorization"] = `Bearer ${authToken}`;
     config.headers["UserToken"] = uuid;
@@ -33,7 +33,7 @@ serverConnectAPI.interceptors.response.use(async function (response: any) {
     if ((response) && (response.status === 200)) {
         if (response.data) {
             if ((response.data.status === false) && (response.data.message !== "")) {
-                throw response.data.message;
+                throw response?.data ? response?.data : response.data.message;
             } else {
                 if (response.data) {
                     return response.data;
@@ -83,23 +83,6 @@ serverConnectAPI.interceptors.response.use(async function (response: any) {
     return Promise.reject(error);
 });
 
-
-
-// function (error) {
-//     if (error && error.response) {
-//         const { data, status } = error.response;
-//         if ((data) && (status == '401')) {// validation error
-//             if (data.errorMsg) {
-//                 throw data.errorMsg;
-//             }
-//         } else {
-//             throw error?.message;
-//         }
-//     } else {
-//         throw error?.message;
-//     }
-//     return Promise.reject(error);
-// });
 
 const setAlertParams_Later = (args: any) => {
     setTimeout(() => {

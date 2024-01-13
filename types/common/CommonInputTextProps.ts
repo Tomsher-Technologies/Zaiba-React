@@ -25,6 +25,7 @@ export interface CommonInputTextProps extends InputHTMLAttributes<HTMLInputEleme
     color?: any;
     showIcon?: any;
     placeholderFontSize?: string;
+    placeholderFontSizeFontWeight?: string;
     borderColor?: string;
     focusedBorderColor?: string;
     labelColor?: string;

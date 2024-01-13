@@ -34,7 +34,7 @@ const useCart = () => {
         onError: (error: any) => {
             getCartList();
             dispatch(setMessages({
-                error: error || error?.message || 'Something went wrong!',
+                messages: error || error?.message || 'Something went wrong!',
                 type: 'error',
                 from: 'cart'
             }));
@@ -61,7 +61,7 @@ const useCart = () => {
         onError: (error: any) => {
             getCartList();
             dispatch(setMessages({
-                error: error || error?.message || 'Something went wrong!',
+                messages: error || error?.message || 'Something went wrong!',
                 type: 'error',
                 from: 'cart'
             }));
@@ -88,7 +88,7 @@ const useCart = () => {
         onError: (error: any) => {
             getCartList();
             dispatch(setMessages({
-                error: error || error?.message || 'Something went wrong!',
+                messages: error || error?.message || 'Something went wrong!',
                 type: 'error',
                 from: 'cart'
             }));
@@ -128,7 +128,7 @@ const useCart = () => {
         queryFn: () => FetchAPIData.fetchAPIData({ apiEndpoint: apiEndpoints.cartList }),
         onSuccess: (response) => {
             if (response.data) {
-                dispatch(setCart(response.data));
+                dispatch(setCart({ ...response.data, cartCount: response.data?.products?.length }));
                 storeData('medon_cart', response.data);
             }
         },

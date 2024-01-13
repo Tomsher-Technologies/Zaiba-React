@@ -1,7 +1,7 @@
 export const colors = {
     primaryColor: '#1F4932',
     primaryHoverColor: '#198754',
-    secondaryColor: '#D5A83E',
+    secondaryColor: '#E7B730',
     errorColor: "#FF0000",
     warningColor: "#f0ad4e",
     successColor: "#5cb85c",

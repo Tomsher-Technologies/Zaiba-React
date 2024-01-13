@@ -8,14 +8,21 @@ export const addressInitialValues = {
     address_id: '',
     name: '',
     address: '',
-    country_id: '',
-    state_id: '',
-    city_id: '',
+    country: '',
+    state: '',
+    city: '',
     longitude: '',
     latitude: '',
-    postal_code: '',
     phone: '',
+    type: 'home'
 };
+
+export const changePasswordFormik = {
+    current_password: '',
+    new_password: '',
+    password_confirmation: ''
+}
+
 
 // export const addressInitialValues = {
 //     address: [{

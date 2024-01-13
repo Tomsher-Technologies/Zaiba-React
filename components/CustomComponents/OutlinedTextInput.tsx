@@ -33,6 +33,7 @@ const OutlinedTextInput: React.FC<CommonInputTextProps> = (props) => {
         focusedBorderColor = colors.primaryColor,
         labelColor = colors.primaryColor,
         placeholderFontSize = '14px',
+        placeholderFontSizeFontWeight = '',
         inputWidth = '37ch',
         textFieldSize = "small",
         endAdornment = false,
@@ -112,7 +113,7 @@ const OutlinedTextInput: React.FC<CommonInputTextProps> = (props) => {
                                 style: {
                                     textAlign: 'left', // Center-align placeholder
                                     fontSize: placeholderFontSize,
-                                    // fontWeight: 'bold'
+                                    fontWeight: placeholderFontSizeFontWeight
                                 },
                             }}
                             multiline={multiline}
@@ -123,15 +124,16 @@ const OutlinedTextInput: React.FC<CommonInputTextProps> = (props) => {
                             onKeyPress={handleKeyPress}
                             color={color}
                             sx={{
-                                fieldset: { borderColor: borderColor ?? 'primary', backgroundColor: bgColor, overflow: "hidden", },
+                                fieldset: { borderWidth: Boolean(error) ? 2 : 1, borderColor: borderColor ?? 'primary', backgroundColor: bgColor, overflow: "hidden", },
                                 "& .MuiInputBase-input.Mui-disabled": {
                                     WebkitTextFillColor: "green",
                                 },
                                 "& .MuiOutlinedInput-root": {
                                     "&.Mui-focused fieldset": {
-                                        borderColor: focusedBorderColor
+                                        borderColor: focusedBorderColor,
                                     }
                                 },
+                                
                                 "& .MuiInputBase-root.MuiOutlinedInput-root ::placeholder": {
                                     color: "black",
                                     fontWeight: '600'
@@ -150,6 +152,7 @@ const OutlinedTextInput: React.FC<CommonInputTextProps> = (props) => {
                                 padding: textPadding
                                 // },
                             }}
+
                             className={`bg-gray-50 ${className}`}
                             size={!rows ? textFieldSize : "small"}
                         />

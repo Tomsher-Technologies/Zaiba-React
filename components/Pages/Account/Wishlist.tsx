@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { WishlistProps } from '@/types/Account';
+import { WishlistProps } from '@/types/AccountProps';
 
 const Wishlist: FC<WishlistProps> = ({ user }) => {
     return (

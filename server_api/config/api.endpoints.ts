@@ -13,10 +13,13 @@ export const apiEndpoints = {
     updateProfile: 'auth/update-profile',
     updateAddress: 'auth/update-address',
     addAddress: 'auth/add-address',
+    changePassword: 'auth/change-password',
 
     productLists: 'products',
     brandLists: 'website/brands',
     categoryLists: 'website/categories',
+    
+    homePageData: 'auth/home'
 }
 
 

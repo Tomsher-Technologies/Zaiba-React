@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import Link from 'next/link';
 
-import { InnerStripProps } from '@/types/Products';
+import { InnerStripProps } from '@/types/ProductsProps';
 
 const InnerStrip: FC<InnerStripProps> = ({ title }) => {
     return (

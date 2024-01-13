@@ -27,10 +27,10 @@ const ReduxProvider: FC<ReduxProviderProps> = ({ children }) => {
   };
 
   const loadUuID = async () => {
-    const getuuid = await getData('medon_uuid');
+    const getuuid = await getData('zaiba_uuid');
     if (!getuuid) {
       const uuid = uuidv4();
-      storeData('medon_uuid', uuid);
+      storeData('zaiba_uuid', uuid);
     }
   };
 

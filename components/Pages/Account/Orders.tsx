@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { OrderProps } from '@/types/Account';
+import { OrderProps } from '@/types/AccountProps';
 
 const Orders: FC<OrderProps> = ({ user }) => {
     return (

@@ -5,18 +5,16 @@ import serverConnectAPI from "@/server_api/config/server-connect-api";
 const postAPI = async (postAPIValues: any): Promise<AxiosResponse<any>> => {
     const { apiEndpoint, ...restParams } = postAPIValues;
     // console.log('postAPIValues  ', postAPIValues);
-
-    return await serverConnectAPI.post(apiEndpoint, restParams);
+    if (restParams.formData) {
+        var formData = new FormData();
+        for (const newValues in restParams) {
+            formData.append(newValues, restParams[newValues]);
+        }
+        return await serverConnectAPI.post(apiEndpoint, formData);
+    } else {
+        return await serverConnectAPI.post(apiEndpoint, restParams);
+    }
 };
-
-// const doccumentUpload = async (doccumentUploadValues: any): Promise<AxiosResponse<any>> => {
-//     var formData = new FormData();
-// 	for (const doccValues in doccumentUploadValues) {
-// 		formData.append(doccValues, doccumentUploadValues[doccValues]);
-// 	}
-
-//     return await serverConnectAPI.post(apiEndpoints.doccumentUpload, formData);
-// };
 
 const apiPost = {
     postAPI,

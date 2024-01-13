@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 
-import { MenuDrawerProps } from '@/types/common/Layout';
+import { MenuDrawerProps } from '@/types/common/LayoutProps';
 import InputText from '../CustomComponents/InputText';
 
 const MenuDrawer: FC<MenuDrawerProps> = ({ menuToggleDrawer }) => {

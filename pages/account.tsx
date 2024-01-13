@@ -12,7 +12,7 @@ const Addresses = dynamic(() => import('@/components/Pages/Account/AddAddresses'
 const Wishlist = dynamic(() => import('@/components/Pages/Account/Wishlist'));
 const Payments = dynamic(() => import('@/components/Pages/Account/Payments'));
 
-import { accountMenu } from '@/utiles/constArrays';
+import { accountMenu } from '@/utiles/constArraysAndVariables';
 import { RootState } from '@/redux/store';
 
 const Account: FC = () => {

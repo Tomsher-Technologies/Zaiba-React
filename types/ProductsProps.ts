@@ -20,3 +20,6 @@ export interface CategoriesFilterProps {
     uRS: any;
 }
 
+export interface InnerStripProps {
+    title: string;
+}

@@ -35,7 +35,7 @@ const ProductsListing: FC<ProductListProps> = ({ requestedData }) => {
         uRS.setRowsCount((requestedData as any)?.total_count || 0);
     };
 
-    console.log('requestedData', requestedData);
+    // console.log('requestedData', requestedData);
 
     return (
         <Fragment>
@@ -54,6 +54,7 @@ const ProductsListing: FC<ProductListProps> = ({ requestedData }) => {
                                 <APIFetch lengthCheckObject={(requestedData as any)?.data} isLoading={!isClient}>
                                     <div className="product-listing">
                                         <div className="row gx-3 gy-3">
+                                            {/* <div className=" flex-1 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 "> */}
                                             {(requestedData as any)?.data.map((product: any, index: number) => (
                                                 <ProductItem
                                                     key={index}
@@ -86,9 +87,7 @@ export async function getServerSideProps(context: any) {
         limit: context.query?.limit,
         offset: context.query?.page_size,
         order_by: context.query?.order_by
-    }
-    );
-    console.log('retVal', retVal)
+    });
     if (retVal) {
         return {
             props: {

@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 
-import Button from '@/components/customcomponents/Button';
+import Button from '@/components/CustomComponents/Button';
 
 import { ModalProps } from '@/types/ModalProps';
 
@@ -105,7 +105,7 @@ const TransitionsModal: FC<ModalProps> = ({
                                 </Button>
                                 {onSubmitButtons &&
                                     <Button
-                                        className="bg-primary text-white py-[10px] text-[15px] px-8 rounded-full"
+                                        className="!bg-primary text-white py-[10px] text-[15px] px-8 rounded-md"
                                         isLoading={isLoading}
                                         onClick={onSubmit}
                                     >
