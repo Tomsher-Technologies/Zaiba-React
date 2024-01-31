@@ -37,6 +37,7 @@ export const formatDateAndTime = (inputDate: any) => {
     }
 
     const formattedDate = new Date(year, month, day, hour, minute);
+
     // Check if the created date object is valid
     if (isNaN(formattedDate.getTime())) {
       return 'Invalid Date';
@@ -83,7 +84,7 @@ export const capitalizeWordsFirstLetter = (str: string) => {
 export const amountFormat = (
   Amount: number | string,
   decimal: number = 2,
-  unknownValue: string = 'AED 0.00',
+  unknownValue: string = '--',
   zeroValue: string = '0',
   textColor: string = ''
 ): string | JSX.Element => {
@@ -114,6 +115,7 @@ export const percentageFormat = (
     return `${parsedAmount.toFixed(decimal)}%`;
   }
 };
+
 export const isImage = (url: any) => {
   const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg'];
   let isFileTypeImage: any = '';
@@ -126,3 +128,13 @@ export const isImage = (url: any) => {
   return isFileTypeImage || imageExtensions.includes(extension);
 };
 
+export const generatePaginationConfig = (maxPageSize: number = 20, step: number = 15) => {
+  const paginations = [];
+
+  for (let page_size = 1; page_size <= maxPageSize; page_size++) {
+    const limit = (page_size - 1) * step;
+    paginations.push({ page_size, limit });
+  }
+
+  return paginations;
+};

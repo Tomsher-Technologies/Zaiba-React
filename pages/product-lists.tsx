@@ -17,7 +17,7 @@ import useReport from '@/server_api/hooks/useReport';
 
 const ProductsListing: FC<ProductListProps> = ({ requestedData }) => {
 
-    const uRS = useReport({ fetchFunction: () => fetch_ProductLists(), pagePath: "/products-listing", limit: 16 });
+    const uRS = useReport({ fetchFunction: () => fetch_ProductLists(), pagePath: "/product-lists", next_offset: requestedData.next_offset, limit: 15  });
 
     const [productLists, setProductLists] = useState<any[]>([]);
     const [isClient, setIsClient] = useState<boolean>(false);
@@ -42,6 +42,7 @@ const ProductsListing: FC<ProductListProps> = ({ requestedData }) => {
             <InnerStrip
                 title={"Rings"}
             />
+            <span className='hidden bg-secondary'/>
             <section className="zb-product-listing-area">
                 <div className="container-fluid px-7">
                     <div className="row">
@@ -53,15 +54,15 @@ const ProductsListing: FC<ProductListProps> = ({ requestedData }) => {
                                 <ProductSort />
                                 <APIFetch lengthCheckObject={(requestedData as any)?.data} isLoading={!isClient}>
                                     <div className="product-listing">
-                                        <div className="row gx-3 gy-3">
-                                            {/* <div className=" flex-1 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 "> */}
+                                        {/* <div className="row gx-3 gy-3"> */}
+                                            <div className=" flex-1 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 ">
                                             {(requestedData as any)?.data.map((product: any, index: number) => (
                                                 <ProductItem
                                                     key={index}
                                                     product={product} />
                                             ))}
                                         </div>
-                                        <uRS.MyPagination />
+                                        <div className='flex justify-center mt-5'><uRS.MyPagination /></div>
                                     </div>
                                 </APIFetch>
                             </div>

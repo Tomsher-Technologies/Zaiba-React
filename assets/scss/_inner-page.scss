@@ -1682,3 +1682,109 @@ section{
     }
   }
 }
+
+
+section{
+
+  &.faq-page{
+    padding: 100px 0;
+
+    .accordion{
+
+      border-radius: 0;
+
+      .accordion-item{
+
+        border-radius: 0;
+        border: 0;
+
+        .accordion-body{
+          padding-left: 0;
+          padding-right: 0;
+        }
+
+        .accordion-header{
+
+          .accordion-button{
+   
+            border-top: 1px solid #ccc;
+            border-left: 0;
+            border-right: 0;
+            border-radius: 0;
+            padding-left: 0!important;
+            padding-right: 0;
+            padding: 25px;
+
+            &:not(.collapsed) {
+              background-color: transparent;
+              box-shadow: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+section{
+
+  &.terms-conditions-page{
+
+    padding: 100px 0;
+
+    p{
+      line-height: 28px;
+    }
+  }
+}
+
+
+section{
+
+  &.blog-page{
+    padding: 100px 0;
+
+    .card{
+      border: 0;
+
+      .card-body{
+        padding-left: 0;
+        padding-right: 0;
+        border-bottom: 1px solid #ccc;
+        margin-bottom: 30px;
+
+        h5.card-title {
+          font-size: 23px;
+      }
+      }
+    }
+  }
+}
+
+section{
+
+  &.contact-us-page{
+    padding: 100px 0;
+
+    .form-control{
+      border-radius:0;
+      padding: 20px;
+    }
+
+    ul{
+
+      li{
+
+        a{
+
+          color: #000000;
+          font-weight: 400;
+          font-size: 15px;
+          line-height: 36px;
+        }
+      }
+    }
+
+  }
+}

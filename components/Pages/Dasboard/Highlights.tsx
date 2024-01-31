@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-const Highlights: FC = () => {
+const Highlights: FC<{ highlights: any }> = ({ highlights }) => {
     return (
         <section className="zaiba-highlights">
             <div className="highlights-inner">
@@ -10,72 +10,53 @@ const Highlights: FC = () => {
                             <div className="col-md-4">
                                 <div className="highlights-top-start">
                                     <h3>
-                                        ZAIBA <br />
-                                        Highlights
+                                        {highlights?.title}
                                     </h3>
                                     <p>
-                                        ZAIBA jewellery is a valuable and precious possession, so it&apos;s
-                                        important to ensure that you can trust the quality and
-                                        authenticity of the jewellery you buy
+                                        {highlights?.sub_title}
                                     </p>
                                 </div>
-                                <div className="highlights-top-bottom">
-                                    <div className="count-blocks">
-                                        <div className="customer-block">
-                                            <img src="/images/costumer-icon.svg" alt="" />
-                                            <h3>50K+</h3>
-                                        </div>
-                                        <h5>Happy Customers </h5>
+                                {highlights?.counts &&
+                                    <div className="highlights-top-bottom">
+                                        {highlights.counts?.count_1_count &&
+                                            <div className="count-blocks">
+                                                <div className="customer-block">
+                                                    <img src={highlights.counts?.count_1_icon} alt="" />
+                                                    <h3>{highlights.counts?.count_1_count}</h3>
+                                                </div>
+                                                <h5>{highlights.counts?.count_1_title}</h5>
+                                            </div>
+                                        }
+                                        {highlights.counts?.count_2_count &&
+                                            <div className="count-blocks">
+                                                <div className="customer-block">
+                                                    <img src={highlights.counts?.count_2_icon} alt="" />
+                                                    <h3>{highlights.counts?.count_2_count}</h3>
+                                                </div>
+                                                <h5>{highlights.counts?.count_2_title}</h5>
+                                            </div>
+                                        }
                                     </div>
-                                    <div className="count-blocks">
-                                        <div className="customer-block">
-                                            <img src="/images/costumer-icon.svg" alt="" />
-                                            <h3>10</h3>
-                                        </div>
-                                        <h5>Outlets in UAE </h5>
-                                    </div>
-                                </div>
+                                }
                             </div>
                             <div className="col-md-6">
                                 <div className="highlights-top-right">
-                                    <ul>
-                                        <li>
-                                            <img src="/images/hicon-1.svg" alt="" />
-                                            <span>
-                                                Lifetime <br /> Maintenance
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <img src="/images/hicon-1.svg" alt="" />
-                                            <span>
-                                                Lifetime <br /> Maintenance
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <img src="/images/hicon-1.svg" alt="" />
-                                            <span>
-                                                Lifetime <br /> Maintenance
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <img src="/images/hicon-1.svg" alt="" />
-                                            <span>
-                                                Lifetime <br /> Maintenance
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <img src="/images/hicon-1.svg" alt="" />
-                                            <span>
-                                                Lifetime <br /> Maintenance
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <img src="/images/hicon-1.svg" alt="" />
-                                            <span>
-                                                Lifetime <br /> Maintenance
-                                            </span>
-                                        </li>
-                                    </ul>
+                                    {highlights?.points &&
+                                        <ul>
+                                            {Object.keys(highlights.points).map((key) => {
+                                                if (key.includes("_icon")) {
+                                                    const titleKey = key.replace("_icon", "_title");
+                                                    return (
+                                                        <li key={key}>
+                                                            <img src={highlights.points[key]} alt="" />
+                                                            <span>{highlights.points[titleKey]}</span>
+                                                        </li>
+                                                    );
+                                                }
+                                                return null;
+                                            })}
+                                        </ul>
+                                    }
                                 </div>
                             </div>
                         </div>

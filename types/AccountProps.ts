@@ -18,6 +18,9 @@ export interface AddAddressesProps {
 
 export interface AddressRowProps {
     address: any;
+    makeDefaultAddress: any;
+    makeDefaultAddressLoading: boolean;
+    refetchAddress: any;
 }
 
 export interface WishlistProps {

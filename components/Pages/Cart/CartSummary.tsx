@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import Link from 'next/link';
 
 const CartSummary: FC = () => {
     return (
@@ -52,10 +53,9 @@ const CartSummary: FC = () => {
                         </h4>
                         <h4>AED 550.00</h4>
                     </div>
-                    <a href="/checkout" className="btn btn-login w-100">
-                        {" "}
+                    <Link href="/checkout" className="btn btn-login w-100">
                         Proceed to Checkout
-                    </a>
+                    </Link>
                 </div>
             </div>
         </div>

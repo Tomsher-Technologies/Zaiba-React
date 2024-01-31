@@ -101,7 +101,6 @@ const Login: FC = () => {
                                         }
                                     }}
                                     error={formik?.touched?.password && formik.errors.password}
-                                // required = true,
                                 />
 
                                 <div className="!flex flex-col md:flex-row !justify-between mb-3 ">

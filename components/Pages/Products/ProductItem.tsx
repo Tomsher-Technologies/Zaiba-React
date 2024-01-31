@@ -11,12 +11,12 @@ const ProductItem: FC<ProductItemProps> = ({ product }) => {
 
     return (
 
-        <div className="col-md-3   max-h-[500px] overflow-hidden">
-            <div className="product-card">
-                <Link className='relative' href={"/product-detail/" + product.slug}>
+        <div className=" overflow-hidden">
+            <div className="product-card !min-h-[370px] !max-h-[370px]">
+                <Link className='relative' href={`/product-detail/${product.slug}/${product.sku}`}>
                     <Image
-                        className="img-fluid min-h-[310px]"
-                        src={process.env.NEXT_PUBLIC_IMAGE_URL + (product as any).thumbnail_img}
+                        className="img-fluid max-h-[250px] min-h-[250px] "
+                        src={(product as any).thumbnail_image}
                         alt={product.name}
                         width={700}
                         height={100}
@@ -28,9 +28,14 @@ const ProductItem: FC<ProductItemProps> = ({ product }) => {
                 <h4 className="product-price">{amountFormat(product.main_price)}&nbsp;&nbsp;
                     {product.main_price > product.stroked_price && <del>{amountFormat(product.stroked_price)}</del>}
                 </h4>
-                <Button href="#" className="btn btn-add-cart w-100 mt-3 rounded-md">
+                <div className="product-add-cart-btn-wrapper">
+                    <Button href="#" className="btn btn-cart !px-10">
+                        Add to Cart
+                    </Button>
+                </div>
+                {/* <Button href="#" className="btn btn-add-cart w-100 mt-3 rounded-md">
                     Add to Cart
-                </Button>
+                </Button> */}
             </div>
         </div>
 

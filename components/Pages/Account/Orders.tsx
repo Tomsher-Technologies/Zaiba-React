@@ -40,11 +40,7 @@ const Orders: FC<OrderProps> = ({ user }) => {
                         <div className="zb-profile-order-items-info">
                             <div className="zb-profile-order-items-list">
                                 <div className="zb-profile-order-items-list-img">
-                                    <img
-                                        src="/images/image 13.png"
-                                        className="img-fluid"
-                                        alt=""
-                                    />
+                              
                                 </div>
                                 <div className="zb-profile-order-items-list-info">
                                     <h3>Dome Majesty Malachite Diamond Ring</h3>
@@ -88,11 +84,11 @@ const Orders: FC<OrderProps> = ({ user }) => {
                         <div className="zb-profile-order-items-info">
                             <div className="zb-profile-order-items-list">
                                 <div className="zb-profile-order-items-list-img">
-                                    <img
+                                    {/* <img
                                         src="/images/image 13.png"
                                         className="img-fluid"
                                         alt=""
-                                    />
+                                    /> */}
                                 </div>
                                 <div className="zb-profile-order-items-list-info">
                                     <h3>Dome Majesty Malachite Diamond Ring</h3>
@@ -136,11 +132,11 @@ const Orders: FC<OrderProps> = ({ user }) => {
                         <div className="zb-profile-order-items-info">
                             <div className="zb-profile-order-items-list">
                                 <div className="zb-profile-order-items-list-img">
-                                    <img
+                                    {/* <img
                                         src="/images/image 13.png"
                                         className="img-fluid"
                                         alt=""
-                                    />
+                                    /> */}
                                 </div>
                                 <div className="zb-profile-order-items-list-info">
                                     <h3>Dome Majesty Malachite Diamond Ring</h3>

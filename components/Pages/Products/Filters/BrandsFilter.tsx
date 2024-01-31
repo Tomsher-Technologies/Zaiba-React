@@ -11,7 +11,6 @@ const BrandsFilter: FC<BrandsFilterProps> = ({ brandLists, uRS }) => {
         srtQueryString();
     }, [checkedItems]);
 
-    console.log('checkedItems', checkedItems);
     useEffect(() => {
         if (router.isReady && router.query) {
             const brandSlug = uRS.filterValues.brand;

@@ -129,7 +129,7 @@ const useCart = () => {
         onSuccess: (response) => {
             if (response.data) {
                 dispatch(setCart({ ...response.data, cartCount: response.data?.products?.length }));
-                storeData('medon_cart', response.data);
+                storeData('zaiba_cart', response.data);
             }
         },
         // enabled: false

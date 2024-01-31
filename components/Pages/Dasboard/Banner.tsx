@@ -57,13 +57,16 @@ const Banner: FC<{ sliders: any[] }> = ({ sliders }) => {
                         ref={carouselRef}
                         disableButtonsControls
                         // disableDotsControls
+                        mouseTracking
+                        touchTracking
+                        infinite
                         responsive={{
                             0: { items: 1 },
                             1024: { items: 1 },
                         }}
 
                     >
-                        {sliders.map((slider: any, index: number) => (
+                        {sliders?.map((slider: any, index: number) => (
 
 
                             <div className="banner-item" key={index}>

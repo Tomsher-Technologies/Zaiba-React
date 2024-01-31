@@ -1,6 +1,8 @@
 
 import Box from '@mui/material/Box';
+import { useRef } from 'react';
 import TextField from '@mui/material/TextField';
+
 import { CommonInputTextProps } from '@/types/common/CommonInputTextProps';
 import { colors } from '@/constants/colors';
 
@@ -22,6 +24,7 @@ const InputText: React.FC<CommonInputTextProps> = (props) => {
         disabled = false,
         readOnly = false,
         error,
+        inputRef = '',
         helperText = '',
         multiline = false,
         rows,
@@ -40,6 +43,8 @@ const InputText: React.FC<CommonInputTextProps> = (props) => {
         onChange = (e: any) => { },
         onKeyPress = (e: any) => { },
     } = props;
+
+    const ref = useRef<any>(null);
 
     const disabledLabelStyle = {
         color: disabled ? '#00000055' : '',
@@ -95,6 +100,7 @@ const InputText: React.FC<CommonInputTextProps> = (props) => {
                         required={required}
                         disabled={disabled}
                         autoFocus={autoFocus}
+                        inputRef={input => inputRef || input && autoFocus && input.focus()}
                         variant="outlined"
                         error={Boolean(error)}
                         // helperText={error || helperText}

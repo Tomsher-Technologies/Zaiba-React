@@ -1,6 +1,7 @@
+import Image from 'next/image';
 import React, { FC } from 'react';
 
-const GetInspired: FC = () => {
+const GetInspired: FC<{ getInspired: any }> = ({ getInspired }) => {
     return (
         <section className="get-inspired">
             <div className="inspired-inner">
@@ -8,40 +9,17 @@ const GetInspired: FC = () => {
                     <div className="row">
                         <div className="col-md-12">
                             <div className="title-block text-center mb-4">
-                                <h3 className="sub-title">#zaibajewellers</h3>
-                                <h4 className="main-title">GET INSPIRED</h4>
+                                <h3 className="sub-title">{getInspired?.title}</h3>
+                                <h4 className="main-title">{getInspired?.sub_title}</h4>
                             </div>
                         </div>
                     </div>
                     <div className="row g-0">
-                        <div className="col-md-3">
-                            <img
-                                src="/images/inspired-img1.png"
-                                className="img-fluid"
-                                alt=""
-                            />
-                        </div>
-                        <div className="col-md-3">
-                            <img
-                                src="/images/inspired-img2.png"
-                                className="img-fluid"
-                                alt=""
-                            />
-                        </div>
-                        <div className="col-md-3">
-                            <img
-                                src="/images/inspired-img3.png"
-                                className="img-fluid"
-                                alt=""
-                            />
-                        </div>
-                        <div className="col-md-3">
-                            <img
-                                src="/images/inspired-img4.png"
-                                className="img-fluid"
-                                alt=""
-                            />
-                        </div>
+                        {Object.values(getInspired)?.slice(2)?.map((image: any, index) => (
+                            <div key={index} className="col-md-3">
+                                <img src={image} className="img-fluid" alt={`Inspired Image ${index + 1}`} />
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>

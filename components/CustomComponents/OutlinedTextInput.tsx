@@ -1,9 +1,10 @@
 
 import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
+import { useRef } from 'react';
+import { FormControl, OutlinedInput } from '@mui/material';
+
 import { CommonInputTextProps } from '@/types/common/CommonInputTextProps';
 import { colors } from '@/constants/colors';
-import { FormControl, OutlinedInput } from '@mui/material';
 
 
 const OutlinedTextInput: React.FC<CommonInputTextProps> = (props) => {
@@ -23,6 +24,7 @@ const OutlinedTextInput: React.FC<CommonInputTextProps> = (props) => {
         disabled = false,
         readOnly = false,
         error,
+        inputRef = '',
         helperText = '',
         multiline = false,
         rows,
@@ -42,6 +44,8 @@ const OutlinedTextInput: React.FC<CommonInputTextProps> = (props) => {
         onChange = (e: any) => { },
         onKeyPress = (e: any) => { },
     } = props;
+
+    const ref = useRef<any>(null);
 
     const disabledLabelStyle = {
         color: disabled ? '#00000055' : '',
@@ -95,6 +99,7 @@ const OutlinedTextInput: React.FC<CommonInputTextProps> = (props) => {
                             disabled={disabled}
                             autoFocus={autoFocus}
                             error={Boolean(error)}
+                            inputRef={input => inputRef || input && autoFocus && input.focus()}
                             // helperText={error || helperText}
                             endAdornment={
                                 <div className="flex items-center justify-center ">{endAdornment}</div>
@@ -133,7 +138,7 @@ const OutlinedTextInput: React.FC<CommonInputTextProps> = (props) => {
                                         borderColor: focusedBorderColor,
                                     }
                                 },
-                                
+
                                 "& .MuiInputBase-root.MuiOutlinedInput-root ::placeholder": {
                                     color: "black",
                                     fontWeight: '600'

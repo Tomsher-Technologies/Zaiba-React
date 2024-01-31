@@ -4,8 +4,6 @@ import dynamic from 'next/dynamic';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 import Drawer from '@mui/material/Drawer';
-import { List, ListItem, ListItemText } from '@mui/material';
-
 
 
 type Anchor = 'top' | 'left' | 'bottom' | 'right';

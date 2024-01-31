@@ -1,11 +1,15 @@
 import React, { FC, useRef } from 'react';
-import { East, West } from '@mui/icons-material';
+import dynamic from 'next/dynamic';
 
 import AliceCarousel from 'react-alice-carousel';
 // const AliceCarousel = dynamic(() => import('react-alice-carousel'), { ssr: false });
 import "react-alice-carousel/lib/alice-carousel.css";
 
-const TrendingProducts: FC = () => {
+const ProductItem = dynamic(() => import('@/components/Pages/Products/ProductItem'));
+
+import { APIFetch } from '@/server_api/utils/APIFetch';
+
+const TrendingProducts: FC<{ trendingProducts: any }> = ({ trendingProducts }) => {
     const carouselRef = useRef<null>(null);
 
     return (
@@ -15,11 +19,12 @@ const TrendingProducts: FC = () => {
                     <div className="row">
                         <div className="col-md-12">
                             <div className="title-block text-center mb-4">
-                                <h3 className="sub-title">BE IN</h3>
-                                <h4 className="main-title">Shop By Trending Products</h4>
+                                <h3 className="sub-title">{trendingProducts.sub_title}</h3>
+                                <h4 className="main-title">{trendingProducts.title}</h4>
                             </div>
                         </div>
                     </div>
+                    <APIFetch lengthCheckObject={(trendingProducts as any)?.products} >
                     <div className="row">
                         <div className="col-md-12">
                             <div className="trending-slider relative filter-coontent">
@@ -40,7 +45,6 @@ const TrendingProducts: FC = () => {
                                         role="tabpanel"
                                         aria-labelledby="pills-allthejewellery-tab"
                                         tabIndex={0}
-
                                     >
                                         <AliceCarousel
                                             autoPlay
@@ -49,378 +53,23 @@ const TrendingProducts: FC = () => {
                                             disableButtonsControls
                                             disableDotsControls
                                             // renderDotsItem={renderDots as any}
+                                            mouseTracking
+                                            touchTracking
+                                            infinite
                                             responsive={{
                                                 0: { items: 1 },
                                                 568: { items: 2 },
                                                 1024: { items: 5 },
                                             }}
-
                                         >
-                                            <div
-                                                className="collection-item mr-2"
-                                                id="BRACELETS ALLJEWELLERY"
-                                            >
-                                                <a href="product-detail.html"></a>
-                                                <div className="product-card">
-                                                    <a href="product-detail.html">
-                                                        <img
-                                                            src="/images/collection_img1.png"
-                                                            className="img-fluid"
-                                                            alt=""
-                                                        />
-                                                    </a>
-                                                    <a className="product-title" href="#">
-                                                        ANGEL HOOPS GOLDEN EARRINGS
-                                                    </a>
-                                                    <h4 className="product-price">
-                                                        AED 1259.00 AED 819.00
-                                                    </h4>
-                                                    <div className="product-add-cart-btn-wrapper">
-                                                        <a href="#" className="btn btn-cart">
-                                                            Add to Cart
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="collection-item mr-2" id="NECKLACES">
-                                                <a href="product-detail.html" />
-                                                <div className="product-card">
-                                                    <img
-                                                        src="/images/collection_img2.png"
-                                                        className="img-fluid"
-                                                        alt=""
+                                            {trendingProducts.products?.map?.((product: any, index: number) => (
+                                                <div key={index} className='pr-3'>
+                                                    <ProductItem
+                                                        product={product}
                                                     />
-                                                    <a className="product-title" href="#">
-                                                        ANGEL HOOPS GOLDEN EARRINGS
-                                                    </a>
-                                                    <h4 className="product-price">
-                                                        AED 1259.00 AED 819.00
-                                                    </h4>
-                                                    <div className="product-add-cart-btn-wrapper">
-                                                        <a href="#" className="btn btn-cart">
-                                                            Add to Cart
-                                                        </a>
-                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div className="collection-item mr-2" id="RINGS">
-                                                <a href="product-detail.html"></a>
-                                                <div className="product-card">
-                                                    <a href="product-detail.html">
-                                                        <img
-                                                            src="/images/collection_img3.png"
-                                                            className="img-fluid"
-                                                            alt=""
-                                                        />
-                                                    </a>
-                                                    <a className="product-title" href="#">
-                                                        ANGEL HOOPS GOLDEN EARRINGS
-                                                    </a>
-                                                    <h4 className="product-price">
-                                                        AED 1259.00 AED 819.00
-                                                    </h4>
-                                                    <div className="product-add-cart-btn-wrapper">
-                                                        <a href="#" className="btn btn-cart">
-                                                            Add to Cart
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="collection-item mr-2" id="EARRINGS">
-                                                <a href="product-detail.html"></a>
-                                                <div className="product-card">
-                                                    <a href="product-detail.html">
-                                                        <img
-                                                            src="/images/collection_img4.png"
-                                                            className="img-fluid"
-                                                            alt=""
-                                                        />
-                                                    </a>
-                                                    <a className="product-title" href="#">
-                                                        ANGEL HOOPS GOLDEN EARRINGS
-                                                    </a>
-                                                    <h4 className="product-price">
-                                                        AED 1259.00 AED 819.00
-                                                    </h4>
-                                                    <div className="product-add-cart-btn-wrapper">
-                                                        <a href="#" className="btn btn-cart">
-                                                            Add to Cart
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="collection-item mr-2" id="BRACELETS">
-                                                <a href="product-detail.html"></a>
-                                                <div className="product-card">
-                                                    <a href="product-detail.html">
-                                                        <img
-                                                            src="/images/collection_img5.png"
-                                                            className="img-fluid"
-                                                            alt=""
-                                                        />
-                                                    </a>
-                                                    <a className="product-title" href="#">
-                                                        ANGEL HOOPS GOLDEN EARRINGS
-                                                    </a>
-                                                    <h4 className="product-price">
-                                                        AED 1259.00 AED 819.00
-                                                    </h4>
-                                                    <div className="product-add-cart-btn-wrapper">
-                                                        <a href="#" className="btn btn-cart">
-                                                            Add to Cart
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="collection-item mr-2" id="RINGS">
-                                                <a href="product-detail.html"></a>
-                                                <div className="product-card">
-                                                    <a href="product-detail.html">
-                                                        <img
-                                                            src="/images/collection_img1.png"
-                                                            className="img-fluid"
-                                                            alt=""
-                                                        />
-                                                    </a>
-                                                    <a className="product-title" href="#">
-                                                        ANGEL HOOPS GOLDEN EARRINGS
-                                                    </a>
-                                                    <h4 className="product-price">
-                                                        AED 1259.00 AED 819.00
-                                                    </h4>
-                                                    <div className="product-add-cart-btn-wrapper">
-                                                        <a href="#" className="btn btn-cart">
-                                                            Add to Cart
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="collection-item mr-2" id="NECKLACES">
-                                                <a href="product-detail.html" />
-                                                <div className="product-card">
-                                                    <img
-                                                        src="/images/collection_img2.png"
-                                                        className="img-fluid"
-                                                        alt=""
-                                                    />
-                                                    <a className="product-title" href="#">
-                                                        ANGEL HOOPS GOLDEN EARRINGS
-                                                    </a>
-                                                    <h4 className="product-price">
-                                                        AED 1259.00 AED 819.00
-                                                    </h4>
-                                                    <div className="product-add-cart-btn-wrapper">
-                                                        <a href="#" className="btn btn-cart">
-                                                            Add to Cart
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="collection-item mr-2" id="RINGS">
-                                                <a href="product-detail.html"></a>
-                                                <div className="product-card">
-                                                    <a href="product-detail.html">
-                                                        <img
-                                                            src="/images/collection_img3.png"
-                                                            className="img-fluid"
-                                                            alt=""
-                                                        />
-                                                    </a>
-                                                    <a className="product-title" href="#">
-                                                        ANGEL HOOPS GOLDEN EARRINGS
-                                                    </a>
-                                                    <h4 className="product-price">
-                                                        AED 1259.00 AED 819.00
-                                                    </h4>
-                                                    <div className="product-add-cart-btn-wrapper">
-                                                        <a href="#" className="btn btn-cart">
-                                                            Add to Cart
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="collection-item mr-2" id="EARRINGS">
-                                                <a href="product-detail.html"></a>
-                                                <div className="product-card">
-                                                    <a href="product-detail.html">
-                                                        <img
-                                                            src="/images/collection_img4.png"
-                                                            className="img-fluid"
-                                                            alt=""
-                                                        />
-                                                    </a>
-                                                    <a className="product-title" href="#">
-                                                        ANGEL HOOPS GOLDEN EARRINGS
-                                                    </a>
-                                                    <h4 className="product-price">
-                                                        AED 1259.00 AED 819.00
-                                                    </h4>
-                                                    <div className="product-add-cart-btn-wrapper">
-                                                        <a href="#" className="btn btn-cart">
-                                                            Add to Cart
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="collection-item mr-2" id="BRACELETS">
-                                                <a href="product-detail.html"></a>
-                                                <div className="product-card">
-                                                    <a href="product-detail.html">
-                                                        <img
-                                                            src="/images/collection_img5.png"
-                                                            className="img-fluid"
-                                                            alt=""
-                                                        />
-                                                    </a>
-                                                    <a className="product-title" href="#">
-                                                        ANGEL HOOPS GOLDEN EARRINGS
-                                                    </a>
-                                                    <h4 className="product-price">
-                                                        AED 1259.00 AED 819.00
-                                                    </h4>
-                                                    <div className="product-add-cart-btn-wrapper">
-                                                        <a href="#" className="btn btn-cart">
-                                                            Add to Cart
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="collection-item mr-2" id="RINGS">
-                                                <a href="product-detail.html"></a>
-                                                <div className="product-card">
-                                                    <a href="product-detail.html">
-                                                        <img
-                                                            src="/images/collection_img1.png"
-                                                            className="img-fluid"
-                                                            alt=""
-                                                        />
-                                                    </a>
-                                                    <a className="product-title" href="#">
-                                                        ANGEL HOOPS GOLDEN EARRINGS
-                                                    </a>
-                                                    <h4 className="product-price">
-                                                        AED 1259.00 AED 819.00
-                                                    </h4>
-                                                    <div className="product-add-cart-btn-wrapper">
-                                                        <a href="#" className="btn btn-cart">
-                                                            Add to Cart
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="collection-item mr-2" id="NECKLACES">
-                                                <a href="product-detail.html" />
-                                                <div className="product-card">
-                                                    <img
-                                                        src="/images/collection_img2.png"
-                                                        className="img-fluid"
-                                                        alt=""
-                                                    />
-                                                    <a className="product-title" href="#">
-                                                        ANGEL HOOPS GOLDEN EARRINGS
-                                                    </a>
-                                                    <h4 className="product-price">
-                                                        AED 1259.00 AED 819.00
-                                                    </h4>
-                                                    <div className="product-add-cart-btn-wrapper">
-                                                        <a href="#" className="btn btn-cart">
-                                                            Add to Cart
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="collection-item mr-2" id="RINGS">
-                                                <a href="product-detail.html"></a>
-                                                <div className="product-card">
-                                                    <a href="product-detail.html">
-                                                        <img
-                                                            src="/images/collection_img3.png"
-                                                            className="img-fluid"
-                                                            alt=""
-                                                        />
-                                                    </a>
-                                                    <a className="product-title" href="#">
-                                                        ANGEL HOOPS GOLDEN EARRINGS
-                                                    </a>
-                                                    <h4 className="product-price">
-                                                        AED 1259.00 AED 819.00
-                                                    </h4>
-                                                    <div className="product-add-cart-btn-wrapper">
-                                                        <a href="#" className="btn btn-cart">
-                                                            Add to Cart
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="collection-item mr-2" id="EARRINGS">
-                                                <a href="product-detail.html"></a>
-                                                <div className="product-card">
-                                                    <a href="product-detail.html">
-                                                        <img
-                                                            src="/images/collection_img4.png"
-                                                            className="img-fluid"
-                                                            alt=""
-                                                        />
-                                                    </a>
-                                                    <a className="product-title" href="#">
-                                                        ANGEL HOOPS GOLDEN EARRINGS
-                                                    </a>
-                                                    <h4 className="product-price">
-                                                        AED 1259.00 AED 819.00
-                                                    </h4>
-                                                    <div className="product-add-cart-btn-wrapper">
-                                                        <a href="#" className="btn btn-cart">
-                                                            Add to Cart
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="collection-item mr-2" id="BRACELETS">
-                                                <a href="product-detail.html"></a>
-                                                <div className="product-card">
-                                                    <a href="product-detail.html">
-                                                        <img
-                                                            src="/images/collection_img5.png"
-                                                            className="img-fluid"
-                                                            alt=""
-                                                        />
-                                                    </a>
-                                                    <a className="product-title" href="#">
-                                                        ANGEL HOOPS GOLDEN EARRINGS
-                                                    </a>
-                                                    <h4 className="product-price">
-                                                        AED 1259.00 AED 819.00
-                                                    </h4>
-                                                    <div className="product-add-cart-btn-wrapper">
-                                                        <a href="#" className="btn btn-cart">
-                                                            Add to Cart
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="collection-item mr-2" id="RINGS">
-                                                <a href="product-detail.html"></a>
-                                                <div className="product-card">
-                                                    <a href="product-detail.html">
-                                                        <img
-                                                            src="/images/collection_img1.png"
-                                                            className="img-fluid"
-                                                            alt=""
-                                                        />
-                                                    </a>
-                                                    <a className="product-title" href="#">
-                                                        ANGEL HOOPS GOLDEN EARRINGS
-                                                    </a>
-                                                    <h4 className="product-price">
-                                                        AED 1259.00 AED 819.00
-                                                    </h4>
-                                                    <div className="product-add-cart-btn-wrapper">
-                                                        <a href="#" className="btn btn-cart">
-                                                            Add to Cart
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            ))}
+
                                         </AliceCarousel>
                                     </div>
                                 </div>
@@ -437,6 +86,7 @@ const TrendingProducts: FC = () => {
                             </div>
                         </div>
                     </div>
+                    </APIFetch>
                 </div>
             </div>
         </section>

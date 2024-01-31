@@ -1,10 +1,13 @@
-import { East, West } from '@mui/icons-material';
 import React, { FC, useRef } from 'react';
+import Link from 'next/link';
 import AliceCarousel from 'react-alice-carousel';
 // const AliceCarousel = dynamic(() => import('react-alice-carousel'), { ssr: false });
 import "react-alice-carousel/lib/alice-carousel.css";
 
-const Shopcategory: FC = () => {
+import { APIFetch } from '@/server_api/utils/APIFetch';
+
+
+const ShopCategory: FC<{ trendingCategories: any }> = ({ trendingCategories }) => {
     const carouselRef = useRef<null>(null);
 
     return (
@@ -41,121 +44,45 @@ const Shopcategory: FC = () => {
                             </button>
                         </div>
                     </div>
-                    <div className="row">
-                        <div className="col-md-12">
-                            <div className="category-slider ">
-                                <AliceCarousel
-                                    autoPlay
-                                    autoPlayInterval={70000}
-                                    ref={carouselRef}
-                                    disableButtonsControls
-                                    disableDotsControls
-                                    responsive={{
-                                        0: { items: 1 },
-                                        568: { items: 2 },
-                                        1024: { items: 5 },
-                                    }}
-
-                                >
-                                    <div className="category-item">
-                                        <img
-                                            src="/images/category_img1.png"
-                                            className="img-fluid"
-                                            alt=""
-                                        />
-                                        <a className="category-title" href="#">
-                                            Bracelets
-                                        </a>
-                                    </div>
-                                    <div className="category-item">
-                                        <img
-                                            src="/images/category_img2.png"
-                                            className="img-fluid"
-                                            alt=""
-                                        />
-                                        <a className="category-title" href="#">
-                                            Earrings
-                                        </a>
-                                    </div>
-                                    <div className="category-item">
-                                        <img
-                                            src="/images/category_img2.png"
-                                            className="img-fluid"
-                                            alt=""
-                                        />
-                                        <a className="category-title" href="#">
-                                            Earrings
-                                        </a>
-                                    </div>
-                                    <div className="category-item">
-                                        <img
-                                            src="/images/category_img1.png"
-                                            className="img-fluid"
-                                            alt=""
-                                        />
-                                        <a className="category-title" href="#">
-                                            Bracelets
-                                        </a>
-                                    </div>
-                                    <div className="category-item">
-                                        <img
-                                            src="/images/category_img2.png"
-                                            className="img-fluid"
-                                            alt=""
-                                        />
-                                        <a className="category-title" href="#">
-                                            Earrings
-                                        </a>
-                                    </div>
-                                    <div className="category-item">
-                                        <img
-                                            src="/images/category_img2.png"
-                                            className="img-fluid"
-                                            alt=""
-                                        />
-                                        <a className="category-title" href="#">
-                                            Earrings
-                                        </a>
-                                    </div>
-                                    <div className="category-item">
-                                        <img
-                                            src="/images/category_img1.png"
-                                            className="img-fluid"
-                                            alt=""
-                                        />
-                                        <a className="category-title" href="#">
-                                            Bracelets
-                                        </a>
-                                    </div>
-                                    <div className="category-item">
-                                        <img
-                                            src="/images/category_img2.png"
-                                            className="img-fluid"
-                                            alt=""
-                                        />
-                                        <a className="category-title" href="#">
-                                            Earrings
-                                        </a>
-                                    </div>
-                                    <div className="category-item">
-                                        <img
-                                            src="/images/category_img2.png"
-                                            className="img-fluid"
-                                            alt=""
-                                        />
-                                        <a className="category-title" href="#">
-                                            Earrings
-                                        </a>
-                                    </div>
-                                </AliceCarousel>
+                    <APIFetch lengthCheckObject={trendingCategories?.categories} >
+                        <div className="row">
+                            <div className="col-md-12">
+                                <div className="category-slider ">
+                                    <AliceCarousel
+                                        autoPlay
+                                        autoPlayInterval={70000}
+                                        ref={carouselRef}
+                                        disableButtonsControls
+                                        disableDotsControls
+                                        infinite
+                                        mouseTracking
+                                        responsive={{
+                                            0: { items: 1 },
+                                            568: { items: 2 },
+                                            1024: { items: 5 },
+                                        } as any}
+                                    >
+                                        {trendingCategories?.categories?.map((category: any, index: number) => (
+                                            <div className="category-item" key={index}>
+                                                <img
+                                                    src={(category as any)?.icon?.file_name}
+                                                    className="img-fluid rounded-full max-h-[250px]"
+                                                    alt=""
+                                                />
+                                                <Link className="category-title" href={`product-lists?category=${category.slug}`}>
+                                                    {category.name}
+                                                </Link>
+                                            </div>
+                                        ))}
+                                    </AliceCarousel>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </APIFetch>
                 </div>
             </div>
         </section >
-
     )
 }
 
-export default Shopcategory
+export default ShopCategory

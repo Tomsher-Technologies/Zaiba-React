@@ -6093,7 +6093,8 @@ readers do not read off random characters that represent icons */
   font-style: normal;
   font-weight: 400;
   font-display: block;
- 
+  src: url("../../assets/fonts/fa-brands-400.eot");
+  src: url("../../assets/fonts/fa-brands-400.eot?#iefix") format("embedded-opentype"), url("../fonts/fa-brands-400.woff2") format("woff2"), url("../fonts/fa-brands-400.woff") format("woff"), url("../fonts/fa-brands-400.ttf") format("truetype"), url("../fonts/fa-brands-400.svg#fontawesome") format("svg");
 }
 .fab {
   font-family: "Font Awesome 5 Brands";
@@ -6105,6 +6106,8 @@ readers do not read off random characters that represent icons */
   font-style: normal;
   font-weight: 400;
   font-display: block;
+  src: url("../../assets/fonts/fa-regular-400.eot");
+  src: url("../../assets/fonts/fa-regular-400.eot?#iefix") format("embedded-opentype"), url("../fonts/fa-regular-400.woff2") format("woff2"), url("../fonts/fa-regular-400.woff") format("woff"), url("../fonts/fa-regular-400.ttf") format("truetype"), url("../fonts/fa-regular-400.svg#fontawesome") format("svg");
 }
 .far {
   font-family: "Font Awesome 5 Free";
@@ -6116,6 +6119,8 @@ readers do not read off random characters that represent icons */
   font-style: normal;
   font-weight: 900;
   font-display: block;
+  src: url("../../assets/fonts/fa-solid-900.eot");
+  src: url("../../assets/fonts/fa-solid-900.eot?#iefix") format("embedded-opentype"), url("../fonts/fa-solid-900.woff2") format("woff2"), url("../fonts/fa-solid-900.woff") format("woff"), url("../fonts/fa-solid-900.ttf") format("truetype"), url("../fonts/fa-solid-900.svg#fontawesome") format("svg");
 }
 .fa,
 .fas {
@@ -7425,7 +7430,7 @@ section.banner-section .main-banner .banner-item .banner-caption h1 {
   font-weight: 500;
   line-height: 65px;
   letter-spacing: 0.03em;
-  background: url(../images/text-mask.jpg);
+  background: url(../../public/images/text-mask.jpg);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -9320,7 +9325,7 @@ nav.tp-main-menu-content {
 }
 
 .body-overlay:hover {
-  cursor: url("../images/cross-out.png"), pointer;
+  cursor: url("../../public/images/cross-out.png"), pointer;
 }
 
 .body-overlay.opened {
@@ -10749,6 +10754,71 @@ section.order-success-section .card h3 {
   position: absolute;
   top: 10px;
   left: 10px;
+}
+
+section.faq-page {
+  padding: 100px 0;
+}
+section.faq-page .accordion {
+  border-radius: 0;
+}
+section.faq-page .accordion .accordion-item {
+  border-radius: 0;
+  border: 0;
+}
+section.faq-page .accordion .accordion-item .accordion-body {
+  padding-left: 0;
+  padding-right: 0;
+}
+section.faq-page .accordion .accordion-item .accordion-header .accordion-button {
+  border-top: 1px solid #ccc;
+  border-left: 0;
+  border-right: 0;
+  border-radius: 0;
+  padding-left: 0 !important;
+  padding-right: 0;
+  padding: 25px;
+}
+section.faq-page .accordion .accordion-item .accordion-header .accordion-button:not(.collapsed) {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+section.terms-conditions-page {
+  padding: 100px 0;
+}
+section.terms-conditions-page p {
+  line-height: 28px;
+}
+
+section.blog-page {
+  padding: 100px 0;
+}
+section.blog-page .card {
+  border: 0;
+}
+section.blog-page .card .card-body {
+  padding-left: 0;
+  padding-right: 0;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 30px;
+}
+section.blog-page .card .card-body h5.card-title {
+  font-size: 23px;
+}
+
+section.contact-us-page {
+  padding: 100px 0;
+}
+section.contact-us-page .form-control {
+  border-radius: 0;
+  padding: 20px;
+}
+section.contact-us-page ul li a {
+  color: #000000;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 36px;
 }
 
 /*!
@@ -27222,6 +27292,7 @@ a:hover {
   top: 50%;
   margin-left: -40px;
   margin-top: -40px;
+  /* background: url(owl.video.play.png) no-repeat; */
   cursor: pointer;
   z-index: 1;
   -webkit-backface-visibility: hidden;

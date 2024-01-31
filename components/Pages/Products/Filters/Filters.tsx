@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';
 import { useMediaQuery } from '@mui/material';
 
@@ -15,6 +16,7 @@ import { APIFetch } from '@/server_api/utils/APIFetch';
 import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
 
 const Filters: FC<FilterBlockProps> = ({ uRS, }) => {
+    const router =useRouter();
     const isSmallScreen = useMediaQuery('(max-width:764px)');
     // const isMediumScreen = useMediaQuery('(min-width:601px) and (max-width:960px)');
     // const isLargeScreen = useMediaQuery('(min-width:961px)');
@@ -35,33 +37,40 @@ const Filters: FC<FilterBlockProps> = ({ uRS, }) => {
     return (
         <div className="col-md-3">
             <div className="zb-product-filter-warpper">
-                <div className="flex justify-between items-center zb-filter-list-label sm:cursor-pointer md:cursor-default" onClick={() => isSmallScreen && setFilterBlockEnable(!filterBlockEnable)} >
-                    <div className='flex items-center gap-3'>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width={21}
-                            height={20}
-                            viewBox="0 0 21 20"
-                            fill="none"
-                        >
-                            <g clipPath="url(#clip0_665_1295)">
-                                <path
-                                    d="M12.7951 12L20.7439 4V0H0.87207V4L8.82079 12V20L12.7951 16V12Z"
-                                    fill="#777777"
-                                />
-                            </g>
-                            <defs>
-                                <clipPath id="clip0_665_1295">
-                                    <rect
-                                        width="19.8718"
-                                        height={20}
-                                        fill="white"
-                                        transform="translate(0.87207)"
+                <div className="!w-full flex justify-between items-center zb-filter-list-label sm:cursor-pointer md:cursor-default" onClick={() => isSmallScreen && setFilterBlockEnable(!filterBlockEnable)} >
+                    <div className='!w-full flex justify-between items-center'>
+                        <div className='flex items-center gap-3'>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width={21}
+                                height={20}
+                                viewBox="0 0 21 20"
+                                fill="none"
+                            >
+                                <g clipPath="url(#clip0_665_1295)">
+                                    <path
+                                        d="M12.7951 12L20.7439 4V0H0.87207V4L8.82079 12V20L12.7951 16V12Z"
+                                        fill="#777777"
                                     />
-                                </clipPath>
-                            </defs>
-                        </svg>
-                        <h4>Filters</h4>
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_665_1295">
+                                        <rect
+                                            width="19.8718"
+                                            height={20}
+                                            fill="white"
+                                            transform="translate(0.87207)"
+                                        />
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                            <h4>Filters</h4>
+                        </div>
+                        <div className="cursor-pointer hover:underline hover:text-black" onClick={() => {
+                            router.push(`/product-lists?page_size=${uRS.filterValues.page_size}&limit=${uRS.filterValues.page_size}`)
+                        }} >
+                            Clear Filter
+                        </div>
                     </div>
                     <div className="md:hidden">
                         {filterBlockEnable &&

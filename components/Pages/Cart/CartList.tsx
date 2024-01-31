@@ -192,7 +192,7 @@ const CartList: FC = () => {
                 </div>
             </div>
             <div className="zb-product-cart-bottom">
-                <Link className="shopping-btn" href="/products-listing">
+                <Link className="shopping-btn" href="/product-lists">
                     <i className="bi bi-arrow-left" /> Continue shopping
                 </Link>
                 <Link href="/checkout" className="btn btn-login">

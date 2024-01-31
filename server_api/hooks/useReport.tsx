@@ -2,12 +2,14 @@ import { useState, useEffect, SetStateAction } from 'react';
 import { useRouter } from 'next/router';
 
 import { MyPagination as MyPaginationComponent } from '@/utiles/pagination';
+import { generatePaginationConfig } from '@/utiles/functions';
 
 interface UseReportParams {
     defaultfilterValues?: any; // Adjust the type as needed
     page_size?: string;
     sb?: string;
     limit?: number;
+    next_offset?: number;
     fetchFunction?: () => void;
     combinedFilters?: Record<string, string>;
     pagePath?: string;
@@ -19,9 +21,10 @@ const useReport = (params: UseReportParams = {}) => {
     const defaultfilterValue = {
         ...(params.defaultfilterValues || {}),
         ...(router.query ? { ...router.query } : {}),
-        page_size: params.page_size || router?.query?.page_size || '0',
+        page_size: params.page_size || router?.query?.page_size || '1',
         // sb: params.sb || router?.query?.sb || '',
         limit: params.limit || router?.query?.limit || 10,
+        // next_offset: params.next_offset || router?.query?.next_offset,
     };
 
     const [filterValues, setFilterValues] = useState(defaultfilterValue);
@@ -68,7 +71,7 @@ const useReport = (params: UseReportParams = {}) => {
             filterChanged({
                 ...filterValues,
                 sb: (thisColumn + ' ' + thisDirection).trim(),
-                page_size: 0,
+                page_size: 1,
             }, true);
         } else {
             filterChanged({
@@ -77,16 +80,17 @@ const useReport = (params: UseReportParams = {}) => {
                     ? thisColumn + ' desc'
                     : thisColumn + ' asc'
                 ).trim(),
-                page_size: 0,
+                page_size: 1,
             }, true);
         }
     };
+    console.log('context.query?.next_offset', params.next_offset);
 
     const getCombinedParams = () => {
         return {
             ...filterValues,
             ...checkFilterValuesAvailability(),
-            cnt: filterValues.page_size == '0' || !recordCount ? '1' : null,
+            cnt: filterValues.page_size == '1' || !recordCount ? '1' : null,
         };
     };
 
@@ -108,8 +112,8 @@ const useReport = (params: UseReportParams = {}) => {
     };
 
     const handleFilterClick = (fetchFunction: () => void) => {
-        (filterValues.page_size == 0 && fetchFunction()) ||
-            filterChanged({ ...filterValues, page_size: '0' }, true);
+        (filterValues.page_size == 1 && fetchFunction()) ||
+            filterChanged({ ...filterValues, page_size: '1' }, true);
     };
 
     const filterChanged = (newParam: any = {}, replace = false) => {
@@ -123,7 +127,7 @@ const useReport = (params: UseReportParams = {}) => {
             router.push(
                 `/${params.pagePath || 'nopage'}?${Object.keys({
                     ...filterValues,
-                    page_size: '0',
+                    page_size: '1',
                     ...newParam,
                 })
                     .map((key) =>
@@ -146,7 +150,11 @@ const useReport = (params: UseReportParams = {}) => {
                     pageNumber={parseInt(filterValues.page_size)}
                     pageCount={Math.ceil(recordCount! / filterValues.limit)}
                     handleChangePage={(page_size) =>
-                        filterChanged({ ...filterValues, page_size: page_size }, true)
+                        filterChanged({
+                            ...filterValues,
+                            page_size: page_size,
+                            next_offset: (generatePaginationConfig(50) as any).find((pagination: any) => pagination.page_size === page_size).limit
+                        }, true)
                     }
                 />
             )) || <></>

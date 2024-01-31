@@ -18,6 +18,7 @@ export interface CommonInputTextProps extends InputHTMLAttributes<HTMLInputEleme
     disabled?: boolean;
     readOnly?: boolean;
     error?: any;
+    inputRef?: any;
     helperText?: string | false | string[] | FormikErrors<any> | FormikErrors<any>[] | undefined;
     multiline?: boolean;
     rows?: number;

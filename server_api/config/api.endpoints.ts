@@ -1,6 +1,6 @@
-// export const baseURL = "https://mfar.tomsher.net/api/";
-export const baseURL = "http://127.0.0.1:8000/api/";
-// export const baseURL = "https://medon.tomsher.net/api/v2/";
+export const baseURL = "https://mfar.tomsher.net/api/";
+export const appURL = 'https://www.zaiba.ae/'
+// export const baseURL = "http://127.0.0.1:8000/api/";
 
 export const apiEndpoints = {
     customerLogin: 'auth/login',
@@ -13,13 +13,18 @@ export const apiEndpoints = {
     updateProfile: 'auth/update-profile',
     updateAddress: 'auth/update-address',
     addAddress: 'auth/add-address',
+    makeDefault: 'auth/set-default-address',
+    deleteAddress: 'auth/delete-address',
     changePassword: 'auth/change-password',
 
     productLists: 'products',
     brandLists: 'website/brands',
     categoryLists: 'website/categories',
-    
-    homePageData: 'auth/home'
+
+    homePageData: 'auth/home',
+
+    cartList: 'cart',
+    removeCart: 'cart/remove',
 }
 
 

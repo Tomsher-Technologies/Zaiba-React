@@ -95,6 +95,7 @@ const Profile: FC<ProfileProps> = ({ user }) => {
                                         labelText="Full Name"
                                         placeholder="Enter full name"
                                         className="w-full mt-1"
+                                        autoFocus={enableEdit}
                                         name="name"
                                         value={(userData as any)?.data?.name}
                                         disabled={!enableEdit}
@@ -145,8 +146,8 @@ const Profile: FC<ProfileProps> = ({ user }) => {
 
                         </div>
                     }
-                    <div className="zb-profile-bottom">
-                        <a className="btn btn-password w-25" onClick={() => setChangePasswordModalEnable(!changePasswordModalEnable)}>
+                    <div className="flex flex-col md:flex-row items-center zb-profile-bottom">
+                        <a className="btn btn-password" onClick={() => setChangePasswordModalEnable(!changePasswordModalEnable)}>
                             Change Password
                         </a>
                         <a href="#" className="btn btn-delete">

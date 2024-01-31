@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React, { FC } from 'react'
 
 const Footer: FC = () => {
@@ -103,22 +104,22 @@ const Footer: FC = () => {
                                     <h4>INFORMATION</h4>
                                     <ul>
                                         <li>
-                                            <a href="#">About Us</a>
+                                            <Link href="/about">About Us</Link>
                                         </li>
                                         <li>
-                                            <a href="#">Our Blog</a>
+                                            <Link href="/blogs">Our Blog</Link>
                                         </li>
                                         <li>
-                                            <a href="#">FAQ</a>
+                                            <Link href="/faq">FAQ</Link>
                                         </li>
                                         <li>
-                                            <a href="#">Contacts</a>
+                                            <Link href="/contact-us">Contacts</Link>
                                         </li>
                                         <li>
-                                            <a href="#">Terms &amp; Conditions</a>
+                                            <Link href="/terms-conditions">Terms &amp; Conditions</Link>
                                         </li>
                                         <li>
-                                            <a href="#">Refund and Returns Policy</a>
+                                            <Link href="/refund-returns-policy">Refund and Returns Policy</Link>
                                         </li>
                                     </ul>
                                 </div>
