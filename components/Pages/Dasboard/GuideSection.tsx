@@ -15,18 +15,18 @@ const GuideSection: FC<{ midBanners: any }> = ({ midBanners }) => {
               {midBanners.map((banner: any, index: number) => {
                 let pageRedirect = 'product-lists';
 
-                if (banner.type === 'product') {
+                if (banner.link_type === 'product') {
                   pageRedirect = 'product-details/' + banner.link;
-                } else if (banner.type === 'category') {
+                } else if (banner.link_type === 'category') {
                   pageRedirect = 'product-lists?category=' + banner.link;
-                } else if (banner.type === 'brand') {
+                } else if (banner.link_type === 'brand') {
                   pageRedirect = 'product-lists?brand=' + banner.link;
-                } else if (banner.type === 'offer') {
+                } else if (banner.link_type === 'offer') {
                   pageRedirect = 'product-lists?offer=' + banner.link;
-                } else if (banner.type === 'external') {
+                } else if (banner.link_type === 'external') {
                   pageRedirect = banner.link;
-                } return (
-
+                }
+                return (
                   <div className="col-md-4" key={index}>
                     <div className="guide-block">
                       <img

@@ -24,6 +24,15 @@ export const orderBy = [
     { value: 'price_low', title: 'Price: low to high' }
 ];
 
+export const priceRange = [
+    { min_price: 0, max_price: 500, title: 'Upto 500' },
+    { min_price: 500, max_price: 1000, title: '500 - 1000' },
+    { min_price: 1000, max_price: 5000, title: '1000 - 5000' },
+    { min_price: 5000, max_price: 10000, title: '5000 -10000' },
+    { min_price: 10000, max_price: 20000, title: '10000 - 20000' },
+    { min_price: 20000, max_price: 50000, title: '20000 -50000' },
+    { min_price: 50000, max_price: '', title: 'More than 50000' },
+];
 
 export const startRatings = [
     { value: 1, rating: 1 },

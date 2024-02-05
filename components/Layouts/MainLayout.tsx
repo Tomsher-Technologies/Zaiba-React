@@ -8,6 +8,8 @@ const Footer = dynamic(() => import('@/components/Layouts/Footer'));
 const SnackbarAlert = dynamic(() => import('@/components/Snackbar/SnackbarAlert'));
 
 import { RootState } from '@/redux/store';
+import useWishlist from '@/server_api/hooks/useWishlist';
+import useCart from '@/server_api/hooks/useCart';
 
 interface MainLayoutProps {
     children: ReactNode;
@@ -19,7 +21,15 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
     const messages = useSelector((state: RootState) => state.messages);
     const wishlist = useSelector((state: RootState) => state.wishlist);
 
+    const { getWishlistList } = useWishlist();
+    const { getCartList } = useCart();
+
     const [successMessagesEnable, settSuccessMessagesEnable] = useState<boolean>(false);
+
+    // const { data: navBarData, isLoading: navBarData_loading } = useQuery({
+    //     queryKey: [apiEndpoints.navBarData],
+    //     queryFn: () => FetchAPIData.fetchAPIData({ apiEndpoint: apiEndpoints.navBarData }),
+    // });
 
     useEffect(() => {
         updateAlertMessage();
@@ -31,14 +41,19 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
                 settSuccessMessagesEnable(true)
             }
         }
-        // if (messages.from === 'wishlist') {
-        //     getWishlistList();
-        // }
+        if (messages.from === 'wishlist') {
+            getWishlistList();
+        }
     }
 
     return (
         <Container>
-            <Header />
+            <Header
+                cart={cart}
+                user={user}
+                //  navBarData={navBarData?.data}
+                wishlistCount={wishlist.wishlistCount}
+            />
             {children}
             <Footer />
 

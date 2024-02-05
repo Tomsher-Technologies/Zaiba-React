@@ -23,7 +23,7 @@ const Button: React.FC<ButtonPropsWithIcons> = ({
   size = "small",
   isLoading = false,
   isLoadingColor = 'text-white ',
-  loadingSize = '13px',
+  loadingSize = 18,
   ...props
 }) => {
   return (
@@ -38,7 +38,7 @@ const Button: React.FC<ButtonPropsWithIcons> = ({
       disabled={isLoading || props.disabled}
     // style={{textTransform: 'none', width: width, height: height}}
     >
-      <div className='flex gap-1'>{isLoading && <Loading className={`${isLoadingColor} mr-2 mt-1"  `} size={loadingSize} />}  {children}</div>
+      <div className='flex gap-1'>{isLoading && <Loading className={`${isLoadingColor} mr-2 mt-1 "  `} size={loadingSize} />}  {children}</div>
     </MuiButton>
   );
 };

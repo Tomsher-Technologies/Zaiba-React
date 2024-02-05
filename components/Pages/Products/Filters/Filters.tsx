@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useMediaQuery } from '@mui/material';
 
 const BrandsFilter = dynamic(() => import('@/components/Pages/Products/Filters/BrandsFilter'));
-const DiscountFilter = dynamic(() => import('@/components/Pages/Products/Filters/DiscountFilter'));
+const PriceFilter = dynamic(() => import('@/components/Pages/Products/Filters/PriceFilter'));
 const CategoriesFilter = dynamic(() => import('@/components/Pages/Products/Filters/CategoriesFilter'));
 
 import { FilterBlockProps } from '@/types/ProductsProps';
@@ -15,8 +15,8 @@ import FetchAPIData from '@/server_api/apifunctions/apifetch';
 import { APIFetch } from '@/server_api/utils/APIFetch';
 import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
 
-const Filters: FC<FilterBlockProps> = ({ uRS, }) => {
-    const router =useRouter();
+const Filters: FC<FilterBlockProps> = ({ uRS }) => {
+    const router = useRouter();
     const isSmallScreen = useMediaQuery('(max-width:764px)');
     // const isMediumScreen = useMediaQuery('(min-width:601px) and (max-width:960px)');
     // const isLargeScreen = useMediaQuery('(min-width:961px)');
@@ -67,7 +67,7 @@ const Filters: FC<FilterBlockProps> = ({ uRS, }) => {
                             <h4>Filters</h4>
                         </div>
                         <div className="cursor-pointer hover:underline hover:text-black" onClick={() => {
-                            router.push(`/product-lists?page_size=${uRS.filterValues.page_size}&limit=${uRS.filterValues.page_size}`)
+                            router.push(`/product-lists`)
                         }} >
                             Clear Filter
                         </div>
@@ -87,17 +87,15 @@ const Filters: FC<FilterBlockProps> = ({ uRS, }) => {
                                 brandLists={brandLists?.data}
                             />
                         </APIFetch>
-                        <DiscountFilter />
+                        <PriceFilter
+                            uRS={uRS}
+                        />
                         <APIFetch lengthCheckObject={categoryLists?.data} isLoading={categoryLists_loading}>
                             <CategoriesFilter
                                 uRS={uRS}
                                 categoryLists={categoryLists?.data}
                             />
                         </APIFetch>
-                        <div className="zb-product-list-option-items">
-                            <h3>Price</h3>
-                            ...
-                        </div>
                     </div>
                 }
             </div>

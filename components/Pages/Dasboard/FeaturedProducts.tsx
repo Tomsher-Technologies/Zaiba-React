@@ -13,17 +13,18 @@ const FeaturedProducts: FC<{ collectionBanners: any[] }> = ({ collectionBanners 
                             {collectionBanners.map((collection: any, index: number) => {
                                 let pageRedirect = 'product-lists';
 
-                                if (collection.type === 'product') {
+                                if (collection.link_type === 'product') {
                                     pageRedirect = 'product-details/' + collection.link;
-                                } else if (collection.type === 'category') {
+                                } else if (collection.link_type === 'category') {
                                     pageRedirect = 'product-lists?category=' + collection.link;
-                                } else if (collection.type === 'brand') {
+                                } else if (collection.link_type === 'brand') {
                                     pageRedirect = 'product-lists?brand=' + collection.link;
-                                } else if (collection.type === 'offer') {
+                                } else if (collection.link_type === 'offer') {
                                     pageRedirect = 'product-lists?offer=' + collection.link;
-                                } else if (collection.type === 'external') {
+                                } else if (collection.link_type === 'external') {
                                     pageRedirect = collection.link;
                                 }
+
                                 return (
                                     <div className="col-md-6" key={index}>
                                         <img

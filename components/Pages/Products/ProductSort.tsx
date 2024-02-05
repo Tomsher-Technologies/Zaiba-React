@@ -1,6 +1,9 @@
 import React, { FC } from 'react';
 
-const ProductSort: FC = () => {
+import { orderBy } from '@/utiles/constArraysAndVariables';
+import { ProductSortProps } from '@/types/ProductsProps';
+
+const ProductSort: FC<ProductSortProps> = ({ uRS }) => {
     return (
         <div className="zb-filter-label-group">
             <form action="#">
@@ -11,11 +14,21 @@ const ProductSort: FC = () => {
                         </label>
                     </div>
                     <div className="col-auto">
-                        <select className="form-select" aria-label="Default select example">
-                            <option selected={true}>Most Popular</option>
-                            <option value={1}>One</option>
-                            <option value={2}>Two</option>
-                            <option value={3}>Three</option>
+                        <select className="form-select" aria-label="Default select example"
+                            onChange={(value: any) =>
+                                uRS.filterChanged({
+                                    ...uRS.filterValues,
+                                    order_by: value.target.value,
+                                })}
+                        >
+                            {orderBy.map((order: any, index: number) => (
+                                <option
+                                    key={index}
+                                    selected={order.value === (uRS.filterValues.order_by || 'latest')}
+                                    value={order.value}
+
+                                >{order.title}</option>
+                            ))}
                         </select>
                     </div>
                 </div>

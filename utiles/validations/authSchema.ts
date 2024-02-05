@@ -20,7 +20,9 @@ export const registerValidationSchema = Yup.object().shape({
         .oneOf([Yup.ref('password'), undefined as any], 'Passwords must match') // Ensure confirm_password matches password
         .min(6, 'Confirm password must be at least 4 characters.'),
     phone_number: Yup.string()
-        .required('Mobile number is required').min(9, 'mobile number must be 9 digits'),
+        .required('Mobile number is required')
+        .matches(/^[0-9]+$/, 'Mobile number must contain only digits')
+        .min(9, 'Mobile number must be at least 9 digits').max(9, 'Mobile number must be at max 9 digits')
     // password: Yup.string()
     // .required('Password is required.')
     // .min(4, 'Password must be at least 4 characters.')

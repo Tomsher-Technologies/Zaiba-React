@@ -63,7 +63,7 @@ export const MyPagination: React.FC<MyPaginationProps> = ({ pageNumber, pageCoun
   for (i = startNumber; i < pageNumber; i++) {
     items.push(
       <PaginationButton toPageNumber={i} key={`pagination ${i}`} handleChangePage={handleChangePage}>
-        <div className='!bg-primary flex justify-center items-center rounded-full p-3 mr-1 text-white w-[20px] h-[20px] sm:w-[24px] sm:h-[24px]'>
+        <div className=' flex justify-center items-center rounded-full p-3 mr-1 text-white w-[20px] h-[20px] sm:w-[24px] sm:h-[24px]' style={{backgroundColor:"#198754"}}>
           {i}
         </div>
       </PaginationButton>
@@ -72,7 +72,7 @@ export const MyPagination: React.FC<MyPaginationProps> = ({ pageNumber, pageCoun
 
   items.push(
     <PaginationButton toPageNumber={i} key={`pagination current`} extraClass="active" handleChangePage={handleChangePage}>
-      <div className='!bg-primary flex justify-center items-center rounded-full p-3 mr-1 text-white w-[20px] h-[20px] sm:w-[24px] sm:h-[24px]'>
+      <div className=' flex justify-center items-center rounded-full p-3 mr-1 text-white w-[20px] h-[20px] sm:w-[24px] sm:h-[24px]' style={{backgroundColor:"#E7B730"}}>
         {i}
       </div>
     </PaginationButton>
@@ -81,7 +81,7 @@ export const MyPagination: React.FC<MyPaginationProps> = ({ pageNumber, pageCoun
   for (i = pageNumber + 1; i <= EndNumber; i++) {
     items.push(
       <PaginationButton toPageNumber={i} key={`pagination ${i}`} handleChangePage={handleChangePage}>
-        <div className='!bg-primary flex justify-center items-center rounded-full p-3 mr-1 text-white w-[20px] h-[20px] sm:w-[24px] sm:h-[24px]'>
+        <div className=' flex justify-center items-center rounded-full p-3 mr-1 text-white w-[20px] h-[20px] sm:w-[24px] sm:h-[24px]' style={{backgroundColor:"#198754"}}>
           {i}
         </div>
       </PaginationButton>

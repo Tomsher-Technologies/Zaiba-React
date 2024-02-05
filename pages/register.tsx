@@ -32,7 +32,7 @@ const Register: FC = () => {
         initialValues: registerFormik,
         validationSchema: registerValidationSchema,
         onSubmit: (values: any) => {
-            register(values)
+            register({ ...values, phone: '+971' + values.phone_number })
         },
     });
 

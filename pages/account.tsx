@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 
-import withMainLayout from '@/hocs/withMainLayout';
+import withAuthLayout from '@/hocs/withAuthLayout';
 const InnerStrip = dynamic(() => import('@/components/Pages/Products/InnerStrip'));
 const Profile = dynamic(() => import('@/components/Pages/Account/Profile'));
 const Orders = dynamic(() => import('@/components/Pages/Account/Orders'));
@@ -15,8 +15,11 @@ const Payments = dynamic(() => import('@/components/Pages/Account/Payments'));
 import { accountMenu } from '@/utiles/constArraysAndVariables';
 import { RootState } from '@/redux/store';
 
+import useAuth from '@/server_api/hooks/useAuth';
+
 const Account: FC = () => {
     const user = useSelector((state: RootState) => state.user);
+    const { setLogOut } = useAuth();
     const router = useRouter();
     const { type = 'profile' } = router?.query;
 
@@ -39,6 +42,12 @@ const Account: FC = () => {
         }
     }
 
+    const logOut = () => {
+        setLogOut();
+        window.location.replace("/");
+    }
+
+
     return (
         <Fragment>
             <InnerStrip
@@ -60,18 +69,17 @@ const Account: FC = () => {
                                             <button
                                                 key={index}
                                                 className={`nav-link ${menuSelect === menu.value ? 'active' : ''}`}
-                                                id="v-pills-profile-tab"
-                                                data-bs-toggle="pill"
-                                                data-bs-target="#v-pills-profile"
-                                                type="button"
-                                                role="tab"
-                                                aria-controls="v-pills-profile"
-                                                aria-selected="true"
                                                 onClick={() => handle_routerRedirect(menu)}
                                             >
                                                 <i className={menu.icon} /> {menu.title}
                                             </button>
                                         ))}
+                                        <button
+                                            className={`nav-link `}
+                                            onClick={logOut}
+                                        >
+                                            <i className="bi bi-box-arrow-right" />   Log Out
+                                        </button>
                                     </div>
                                     <div className="tab-content" id="v-pills-tabContent">
                                         {menuSelect === 'profile' &&
@@ -100,4 +108,4 @@ const Account: FC = () => {
     )
 }
 
-export default withMainLayout(Account);
+export default withAuthLayout(Account);

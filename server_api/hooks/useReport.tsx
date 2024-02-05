@@ -27,11 +27,9 @@ const useReport = (params: UseReportParams = {}) => {
         // next_offset: params.next_offset || router?.query?.next_offset,
     };
 
-    const [filterValues, setFilterValues] = useState(defaultfilterValue);
-
+    const [filterValues, setFilterValues] = useState<any>(defaultfilterValue);
     const [recordCount, setRecordCount] = useState<number | null>(null);
-
-    const [filterBlockShow, setFilterBlockShow] = useState(false);
+    const [filterBlockShow, setFilterBlockShow] = useState<boolean>(false);
 
     const combinedFilters = params.combinedFilters || {};
 
@@ -84,7 +82,7 @@ const useReport = (params: UseReportParams = {}) => {
             }, true);
         }
     };
-    console.log('context.query?.next_offset', params.next_offset);
+    // console.log('context.query?.next_offset', params.next_offset);
 
     const getCombinedParams = () => {
         return {
@@ -149,13 +147,15 @@ const useReport = (params: UseReportParams = {}) => {
                 <MyPaginationComponent
                     pageNumber={parseInt(filterValues.page_size)}
                     pageCount={Math.ceil(recordCount! / filterValues.limit)}
-                    handleChangePage={(page_size) =>
-                        filterChanged({
-                            ...filterValues,
-                            page_size: page_size,
-                            next_offset: (generatePaginationConfig(50) as any).find((pagination: any) => pagination.page_size === page_size).limit
-                        }, true)
-                    }
+                    handleChangePage={(page_size) => {
+                        if (parseInt(filterValues.page_size) !== Number(page_size)) {
+                            filterChanged({
+                                ...filterValues,
+                                page_size: page_size,
+                                next_offset: (generatePaginationConfig(50, filterValues?.limit || params.limit) as any).find((pagination: any) => pagination.page_size === page_size).limit
+                            }, true)
+                        }
+                    }}
                 />
             )) || <></>
         );
