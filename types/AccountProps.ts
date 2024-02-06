@@ -23,6 +23,25 @@ export interface AddressRowProps {
     refetchAddress: any;
 }
 
+export interface ShippingDetailsProps {
+    user: any;
+    checkoutFormik: FormikProps<any>;
+    addressLists: any[];
+    addressLists_loading: boolean;
+    setAddressChange: React.Dispatch<React.SetStateAction<boolean>>;
+    addressChange:boolean;
+}
+
+export interface AddressListRowProps {
+    checkoutFormik: FormikProps<any>;
+    address: any;
+    setAddressChange: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export interface BillingAddressProps {
+    checkoutFormik: FormikProps<any>;
+}
+
 export interface WishlistProps {
     user: any;
 }

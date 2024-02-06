@@ -21,7 +21,7 @@ const Animations: FC<AnimationsProps> = ({ animation = '' }) => {
             {
                 animation === 'accountinfo' &&
                 <AccountInfo />
-                || animation === 'addressbook' &&
+                || animation === 'addressLists' &&
                 <AddressBook />
                 || animation === 'myorders' &&
                 <MyOrders />

@@ -49,7 +49,7 @@ const CartList: FC<CartListProps> = ({ cartProducts }) => {
                 <Link className="shopping-btn" href="/product-lists">
                     <i className="bi bi-arrow-left" /> Continue shopping
                 </Link>
-                <Link href="/checkout" className="btn btn-login">
+                <Link href={`${(user && user?.user_id) ? '/checkout' : '/login?rd=/cart'}`} className="btn btn-login">
                     Checkout
                 </Link>
             </div>

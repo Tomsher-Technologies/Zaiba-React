@@ -40,7 +40,8 @@ export const apiEndpoints = {
 
     // checkout 
     applyCouponCode: 'coupon-apply',
-    removeCouponCode: 'coupon-remove'
+    removeCouponCode: 'coupon-remove',
+    placeOrder: 'place-order',
 }
 
 

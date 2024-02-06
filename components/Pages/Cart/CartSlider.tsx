@@ -79,7 +79,6 @@ const Cart: FC<CartProps> = ({ cart, cartToggleDrawer }) => {
                 </APIFetch>
             </div>
         </Box>
-
     )
 }
 

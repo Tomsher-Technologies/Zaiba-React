@@ -18,7 +18,7 @@ import { profileValidationSchema } from '@/utiles/validations/accountSchema';
 import { apiEndpoints } from '@/server_api/config/api.endpoints';
 import PostAPI from '@/server_api/apifunctions/apipost';
 
-const AddAddress: FC<AddAddressProps> = ({ address, addAddressToggleDrawer, onCloseDrawer, }) => {
+const AddAddress: FC<AddAddressProps> = ({ address, setAddressChange, onCloseDrawer, }) => {
     const dispatch = useDispatch();
 
     const [errorMessages, setErrorMessages] = useState<string | null>(null);
@@ -36,6 +36,9 @@ const AddAddress: FC<AddAddressProps> = ({ address, addAddressToggleDrawer, onCl
         onSuccess: async (response: any) => {
             setErrorMessages(null);
             if (response.status) {
+                setAddressChange(true);
+                onCloseDrawer();
+
                 dispatch(setMessages({
                     messages: response.message,
                     type: 'success',
@@ -59,15 +62,13 @@ const AddAddress: FC<AddAddressProps> = ({ address, addAddressToggleDrawer, onCl
     }), [address];
 
     const initializeAddressFormikValues = () => {
-        //   console.log('formik', formik);
-
         if ((address.id) && (!formik.values.address_id)) {
             formik.setFieldValue('address_id', address.id);
             formik.setFieldValue('name', address.name);
             formik.setFieldValue('address', address.address);
             if ((!formik.values.longitude) && (!formik.values.latitude)) {
-                formik.setFieldValue('longitude', address.lang);
-                formik.setFieldValue('latitude', address.lat);
+                formik.setFieldValue('longitude', parseFloat(address.longitude));
+                formik.setFieldValue('latitude', parseFloat(address.latitude));
             }
             if (address.phone.startsWith(countryCode)) {
                 formik.setFieldValue('phone', address.phone.slice(countryCode.length));
@@ -97,33 +98,6 @@ const AddAddress: FC<AddAddressProps> = ({ address, addAddressToggleDrawer, onCl
             </div>
             <div className="offcanvas-body">
                 <div className="zb-add-address-inner">
-                    {/* <div className="zb-add-address-top">
-                        <form>
-                            <div className="mb-3 position-relative">
-                                <input
-                                    type="search"
-                                    className="form-control"
-                                    placeholder="Enter location"
-                                    id="exampleInputEmail1"
-                                />
-                                <svg
-                                    className="zb-search-icon"
-                                    width="30px"
-                                    height="30px"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        d="M14.5776 14.5419C15.5805 13.53 16.2 12.1373 16.2 10.6C16.2 7.50721 13.6928 5 10.6 5C7.50721 5 5 7.50721 5 10.6C5 13.6928 7.50721 16.2 10.6 16.2C12.1555 16.2 13.5628 15.5658 14.5776 14.5419ZM14.5776 14.5419L19 19"
-                                        stroke="#6c757d"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                    />
-                                </svg>
-                            </div>
-                        </form>
-                    </div> */}
                     <div className="zb-add-address-map mt-8">
                         <GoogleMapAPI
                             formik={formik}

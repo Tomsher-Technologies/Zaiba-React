@@ -188,7 +188,7 @@ const CartSummary: FC<CartSummaryProps> = ({ cartSummary }) => {
                         </div>
                         <div className='font-semibold text-[18px] md:text-[19px] 2xl:text-[22px]'>{amountFormat(cartSummary.total)}</div>
                     </div>
-                    <Link href="/checkout" className="btn btn-login w-100">
+                    <Link href={`${(user && user?.user_id) ? '/checkout' : '/login?rd=/cart'}`} className="btn btn-login w-100">
                         Proceed to Checkout
                     </Link>
                 </div>

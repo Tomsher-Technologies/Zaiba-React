@@ -114,7 +114,7 @@ const ProductInfo: FC<ProductInfoProps> = ({ sku, productDetails, isImageHovered
                     <h3>{productDetails.name}</h3>
                     <h5>
                         {amountFormat(productDetails.main_price)} {parseInt(productDetails.stroked_price) > parseInt(productDetails.main_price) && <span className="zb-actual-price">{amountFormat(productDetails.stroked_price)}</span>}
-                        {productDetails.offer_tag !== null && <span className="zb-price-offer">( {productDetails.offer_tag})</span>}
+                        {productDetails.offer_tag !== '' && <span className="zb-price-offer">( {productDetails.offer_tag})</span>}
                     </h5>
                     <div dangerouslySetInnerHTML={{ __html: productDetails.description }} />
                 </div>

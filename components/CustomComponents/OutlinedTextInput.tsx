@@ -6,7 +6,6 @@ import { FormControl, OutlinedInput } from '@mui/material';
 import { CommonInputTextProps } from '@/types/common/CommonInputTextProps';
 import { colors } from '@/constants/colors';
 
-
 const OutlinedTextInput: React.FC<CommonInputTextProps> = (props) => {
     const {
         label,
@@ -24,9 +23,9 @@ const OutlinedTextInput: React.FC<CommonInputTextProps> = (props) => {
         disabled = false,
         readOnly = false,
         error,
-        inputRef = '',
         helperText = '',
         multiline = false,
+        inputRef = '',
         rows,
         maxRows,
         bgColor = 'primary',
@@ -50,7 +49,6 @@ const OutlinedTextInput: React.FC<CommonInputTextProps> = (props) => {
     const disabledLabelStyle = {
         color: disabled ? '#00000055' : '',
     };
-
 
     const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (onKeyPress) {
@@ -99,7 +97,7 @@ const OutlinedTextInput: React.FC<CommonInputTextProps> = (props) => {
                             disabled={disabled}
                             autoFocus={autoFocus}
                             error={Boolean(error)}
-                            inputRef={input => inputRef || input && autoFocus && input.focus()}
+                            inputRef={inputRef || ref}
                             // helperText={error || helperText}
                             endAdornment={
                                 <div className="flex items-center justify-center ">{endAdornment}</div>

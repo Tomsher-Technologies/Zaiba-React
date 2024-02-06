@@ -72,7 +72,7 @@ const Profile: FC<ProfileProps> = ({ user }) => {
             tabIndex={0}
         >
             <APIFetch isLoading={Boolean(!user?.name)} notLengthCheckObject={true} >
-                <APIFetch isLoading={userDta_loading} notLengthCheckObject={true} >
+                <APIFetch isLoading={userDta_loading} notLengthCheckObject={true} animatedLoading="profile">
                     <h3 className="mb-2">Profile</h3>
                     <div className="zb-profile-intro">
                         <h4>Hello {user?.name}!</h4>

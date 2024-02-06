@@ -1,0 +1,15 @@
+export const checkoutInitialValuesFormik = {
+    address_id: '',
+    payment_method: 'card',
+    email: '',
+    name: '',
+    address: '',
+    phone: '',
+    city: 'Al Nahda',
+    state: 'Dubai',
+    country: 'United Arab Emirates',
+    latitude: '',
+    longitude: '',
+    order_notes: '',
+    billing_shipping_same: 0,
+}
